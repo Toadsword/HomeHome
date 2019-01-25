@@ -18,9 +18,6 @@ public class Loup : MonoBehaviour
 
     //current direction of the wolf
     private Vector3 direction;
-    [SerializeField] private PlayerExample player;
-
-    private Rigidbody2D rigid;
 
     // Start is called before the first frame update
     void Start()
