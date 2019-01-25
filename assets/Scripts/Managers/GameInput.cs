@@ -5,7 +5,7 @@ using InControl;
 
 public static class GameInput {
 
-    static bool logInput = false;
+    static bool logInput = true;
 
     static float deadZoneKeyboard = 0.1f;
     public static bool keyboardLastPressed = false;
