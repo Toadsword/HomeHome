@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Loup : MonoBehaviour
 {
-<<<<<<< HEAD
 	private Rigidbody2D rigid;
     
     //distance of the new target point from the current wolf position
@@ -19,26 +18,19 @@ public class Loup : MonoBehaviour
 
     //current direction of the wolf
     private Vector3 direction;
-=======
     [SerializeField] private PlayerExample player;
 
     private Rigidbody2D rigid;
->>>>>>> d6552f46225acfda8f50909638af0c0d7f8e5d57
 
     // Start is called before the first frame update
     void Start()
     {
-<<<<<<< HEAD
 		rigid = GetComponent<Rigidbody2D>();
-=======
-        
->>>>>>> d6552f46225acfda8f50909638af0c0d7f8e5d57
     }
 
     // Update is called once per frame
     void Update()
     {
-<<<<<<< HEAD
         --timer;
         if (timer <= 0)
         {
@@ -65,8 +57,5 @@ public class Loup : MonoBehaviour
             //it makes a little break
             rigid.velocity = new Vector3(0, 0, 0);
         }
-=======
-
->>>>>>> d6552f46225acfda8f50909638af0c0d7f8e5d57
     }
 }
