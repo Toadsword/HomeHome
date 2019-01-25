@@ -16,6 +16,7 @@ public static class GameInput {
         RIGHT,
         UP,
         DOWN,
+        ACTION,
         MENU
     }
     public enum AxisType
@@ -73,6 +74,10 @@ public static class GameInput {
                 result = GetInput(InputControlType.LeftStickDown, timeType) ||
                             GetInput(KeyCode.S, timeType) ||
                             GetInput(KeyCode.DownArrow, timeType);
+                break;
+            case InputType.ACTION:
+                result = GetInput(InputControlType.Action1, timeType) ||
+                            GetInput(KeyCode.Space, timeType);
                 break;
             case InputType.MENU:
                 result = GetInput(InputControlType.Menu, timeType) ||
