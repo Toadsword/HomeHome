@@ -203,6 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bc7b49adcba1e4bbd79023ded9d27a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
 --- !u!4 &175706374
 Transform:
   m_ObjectHideFlags: 0
@@ -317,7 +318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2580e1dd02549ab438555c43f5593479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 175706373}
 --- !u!50 &290348287
 Rigidbody2D:
   serializedVersion: 4
