@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = GameInput.GetAxisRaw(GameInput.AxisType.HORIZONTAL);
-        float vertical = GameInput.GetAxisRaw(GameInput.AxisType.VERTICAL);
+        horizontal = GameInput.GetAxisRaw(GameInput.AxisType.HORIZONTAL);
+        vertical = GameInput.GetAxisRaw(GameInput.AxisType.VERTICAL);
 
         horizontal *= speed;
         vertical *= speed;
