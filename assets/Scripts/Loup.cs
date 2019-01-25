@@ -20,7 +20,7 @@ public class Loup : MonoBehaviour
     private GameObject sweet;
 
     //distances and state
-    float[] distances = { 20.0f, 10.0f, 5.0f};
+    float[] distances = {30.0f, 20.0f, 10.0f, 5.0f};
     private int state;
 
     //timer
@@ -51,7 +51,7 @@ public class Loup : MonoBehaviour
         }
 
         //the wolf walk randomly
-        if (state < 3)
+        else if (state < 3)
         {
             if (timer <= 0)
             {
@@ -87,24 +87,10 @@ public class Loup : MonoBehaviour
     void UpdateState()
     {
         float dist_sweety = Vector3.Distance(transform.position, sweet.transform.position);
-        switch (state)
-        {
-            case 0:
-                if(dist_sweety < distances[0])
-                    state = 1;
-                break;
-            case 1:
-                if (dist_sweety < distances[1])
-                    state = 2;
-                else if (dist_sweety > distances[0])
-                    state = 1;
-                break;
-            case 2:
-                if (dist_sweety < distances[2])
-                    state = 3;
-                else if (dist_sweety > distances[1])
-                    state = 2;
-                break;
-        }
+
+        if (state + 1 < distances.Length && dist_sweety < distances[state + 1])
+            state += 1;
+        else if (state - 1 >= 0 && dist_sweety > distances[state - 1])
+            state -= 1;
     }
 }
