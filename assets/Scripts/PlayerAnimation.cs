@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationManager : MonoBehaviour
+public class PlayerAnimation : MonoBehaviour
 {
     private Animator animator;
     
@@ -15,9 +15,15 @@ public class AnimationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        animator.SetFloat("Horizontal", GameInput.GetAxisRaw(GameInput.AxisType.HORIZONTAL));
-        animator.SetFloat("Vertical", GameInput.GetAxisRaw(GameInput.AxisType.VERTICAL));
+        float horizontal = GameInput.GetAxisRaw(GameInput.AxisType.HORIZONTAL);
+        float vertical = GameInput.GetAxisRaw(GameInput.AxisType.VERTICAL);
 
+        animator.SetFloat("Horizontal", horizontal);
+        animator.SetFloat("Vertical", vertical);
+
+        animator.SetBool("VerticalIsBigger", Mathf.Abs(horizontal) < Mathf.Abs(vertical));
+
+        animator.speed = Mathf.Max(Mathf.Abs(horizontal), Mathf.Abs(vertical));
         //TODO Ajouter condition pour le pickup
     }
 }
