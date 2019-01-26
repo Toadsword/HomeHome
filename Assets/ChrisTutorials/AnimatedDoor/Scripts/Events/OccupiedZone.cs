@@ -16,6 +16,9 @@ public class OccupiedZone : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.tag != "Sweet")
+            return;
+
         occupants.Add(collision);
 
         // First Occupant Trigger
@@ -27,12 +30,16 @@ public class OccupiedZone : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.tag != "Sweet")
+            return;
         if (ZoneContinuesToBeOccupied.GetPersistentEventCount() != 0)
             ZoneContinuesToBeOccupied.Invoke();
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
+        if (collision.tag != "Sweet")
+            return;
         occupants.Remove(collision);
 
         if (occupants.Count == 0 && LastOccupantLeft.GetPersistentEventCount() != 0)
