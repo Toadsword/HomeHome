@@ -19,12 +19,14 @@ public class bobbingBehavior : MonoBehaviour
             timeSinceHorizontal -= Time.deltaTime * 4;
         }
 
-        if (timeSinceHorizontal < 0)
-            timeSinceHorizontal = 0;
+        if (timeSinceHorizontal < 0f)
+            timeSinceHorizontal = 0f;
         if (timeSinceHorizontal > timetoStopBobbling)
             timeSinceHorizontal = timetoStopBobbling;
 
-        bobbingScale = 1 - (timeSinceHorizontal / timetoStopBobbling);
+        bobbingScale = 1.2f - (timeSinceHorizontal / timetoStopBobbling);
+
+
 
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Sin(Time.time * 5f) * 30 * bobbingScale));
     }
