@@ -97,9 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bc7b49adcba1e4bbd79023ded9d27a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 6
   surBuisson: 0
   surFeuillage: 0
+  loup: {fileID: 0}
 --- !u!114 &1853224351439058720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,7 +154,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.5
 --- !u!114 &1853224351439058717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,7 +366,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853224352410757648}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -578,7 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9a785fcb252cc4a8eb4417946f30cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScale: 2.5
+  maxScale: 4.5
   minScale: 1
   timeForOneScale: 120
   timeRemaining: 0
@@ -592,6 +593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 981069592861705827}
   - component: {fileID: 8399586560275707678}
+  - component: {fileID: 6274063082316041152}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -661,6 +663,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6274063082316041152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8198912862613448203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ea2bcdd0b173a4e947a731cdab8eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8888374217602787883
 GameObject:
   m_ObjectHideFlags: 0

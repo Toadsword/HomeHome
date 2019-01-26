@@ -11,13 +11,13 @@ public class Loup : MonoBehaviour
     
     //distance of the new target point from the current wolf position
     [SerializeField]
-    private int time = 10;
+    private int time = 100;
 
     //speed of the wolf
     [SerializeField]
-    private float walk_speed = 1.0f;
+    private float walk_speed = 2.0f;
     [SerializeField]
-    private float run_speed = 2.0f;
+    private float run_speed = 5.0f;
 
     float current_speed = 0.0f;
 
@@ -25,14 +25,14 @@ public class Loup : MonoBehaviour
     private GameObject sweet;
 
     //distances and state
-    float[] distances = {30.0f, 20.0f, 10.0f, 5.0f};
+    float[] distances = {30.0f, 20.0f, 15.0f, 10.0f};
     float distance_too_far = 50.0f;
     private int state;
 
     //noise pos
-    float[] noise_precisions = { Mathf.PI, 0.5f * Mathf.PI, 0.25f * Mathf.PI, 0.5f*Mathf.PI, 0.0f};
+    float[] noise_precisions = { 0.5f*Mathf.PI, 0.4f * Mathf.PI, 0.3f * Mathf.PI, 0.2f*Mathf.PI, 0.0f};
     Vector3 last_noise_pos = new Vector3(0.0f, 0.0f, 0.0f);
-    float noise_precision = Mathf.PI;
+    float noise_precision = 0.5f*Mathf.PI;
 
     //house
     float x1_house = -3.5f;
@@ -112,7 +112,6 @@ public class Loup : MonoBehaviour
         //deal with house ...
         if (CollidesHouse(transform.position, sweet.transform.position))
         {
-            Debug.Log("oui");
             float dx_house = x2_house - x1_house;
             float dy_house = y2_house - y1_house;
 
@@ -165,28 +164,28 @@ public class Loup : MonoBehaviour
         current_speed = run_speed;
     }
 
-    void HearNoise()
+    public void hearNoise(Vector3 pos)
     {
         noise_precision = noise_precisions[state];
-        last_noise_pos = sweet.transform.position;
+        last_noise_pos = pos;
     }
 
     //se balader
     void WanderAround()
     {
-        int action_to_do = Random.Range(0, 2);
+        int action_to_do = Random.Range(0, 5);
         //it starts walking again
-        if (action_to_do == 1)
+        if (action_to_do != 0)
         {
             //random theta noise
-            float theta_rand = Random.Range(-noise_precision,noise_precision);
+            float theta_rand = Random.Range(-noise_precision*180.0f/Mathf.PI, noise_precision*180.0f/Mathf.PI);
             //initial angle with position
-            float theta = Vector3.Angle(sweet.transform.position - transform.position, Vector3.right) + theta_rand;
-            float delta = Random.Range(0.5f, 1.5f);
-            direction = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
+            direction = Quaternion.Euler(0, 0, theta_rand) * Vector3.Normalize(last_noise_pos - transform.position);
+            Debug.Log(direction);
+            Debug.Log(last_noise_pos - transform.position);
             current_speed =  walk_speed;
         }
-        if(action_to_do==0)
+        else if(action_to_do==0)
         {
             current_speed = 0.0f;
         }
@@ -261,6 +260,15 @@ public class Loup : MonoBehaviour
             arbreEnCoursDestruction = other.gameObject;
             posArbreInitiale = arbreEnCoursDestruction.transform.position;
         }
+    }
+
+    public void SetSurBuisson(bool b)
+    {
+        surBuisson = b;
+    }
+    public void SetSurFeuillage(bool b)
+    {
+        surFeuillage = b;
     }
 
 }

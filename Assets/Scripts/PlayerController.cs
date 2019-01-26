@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
 
     private float horizontal, vertical;
 
+    [SerializeField] private Loup loup;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +27,11 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = GameInput.GetAxisRaw(GameInput.AxisType.HORIZONTAL);
         vertical = GameInput.GetAxisRaw(GameInput.AxisType.VERTICAL);
-        
-        horizontal *= speed;
-        vertical *= speed;
+
+        Vector3 dir = Vector3.Normalize(new Vector3(horizontal, vertical, 0))*speed;
+
+        horizontal = dir.x;
+        vertical = dir.y;
     }
 
     void FixedUpdate()
@@ -36,5 +40,23 @@ public class PlayerController : MonoBehaviour
             rigid.velocity = new Vector2(horizontal, vertical);
         else
             rigid.velocity *= 0;
+    }
+
+    public void SetSurBuisson(bool b)
+    {
+        surBuisson = b;
+        if(b)
+            makesNoise();
+    }
+    public void SetSurFeuillage(bool b)
+    {
+        surFeuillage = b;
+        if(b)
+            makesNoise();
+    }
+    
+    void makesNoise()
+    {
+        loup.hearNoise(transform.position);
     }
 }
