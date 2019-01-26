@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5342680764988782100}
   - component: {fileID: 3673480817538470893}
   - component: {fileID: 5822703165009559286}
+  - component: {fileID: 2396409826663451434}
   m_Layer: 0
   m_Name: Buisson4
   m_TagString: Buisson
@@ -105,3 +106,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ea2bcdd0b173a4e947a731cdab8eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &2396409826663451434
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4217987722383990068}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
