@@ -120,7 +120,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public AudioSource PlaySound(SoundList sound, float timeToLoop = 0.0f)
+    public AudioSource PlaySound(SoundList sound, float volume = 1.0f, float timeToLoop = 0.0f)
     {
         //return null;
         AudioSource emitterAvailable = null;
@@ -128,14 +128,13 @@ public class SoundManager : MonoBehaviour
         foreach(AudioSource emitter in emitters)
         {
             if(!emitter.isPlaying)
-            {
                 emitterAvailable = emitter;
-            }
         }
 
         if (emitterAvailable != null)
         {
             emitterAvailable.loop = false;
+            emitterAvailable.volume = volume;
             Debug.Log(sound.ToString());
             switch (sound)
             {
@@ -192,7 +191,6 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("no emitter available");
             return null;
         }        
     }
