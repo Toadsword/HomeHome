@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigid.velocity = new Vector2(horizontal, vertical);
+        if (!GetComponent<PlayerInventory>().isPicking)
+            rigid.velocity = new Vector2(horizontal, vertical);
+        else
+            rigid.velocity *= 0;
     }
 }
