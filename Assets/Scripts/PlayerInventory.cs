@@ -32,7 +32,6 @@ public class PlayerInventory : MonoBehaviour
         //récupération pickable plus proche
         if (GameInput.GetInputDown(GameInput.InputType.ACTION))
         {
-            Debug.Log("Size : " + closestPickable.Count);
             Transform closestOne = null;
             float minDist = Mathf.Infinity;
             Vector3 currentPos = transform.position;
@@ -51,6 +50,7 @@ public class PlayerInventory : MonoBehaviour
             {
                 pickableEnCours = closestOne;
                 timer_pick = 0;
+                SoundManager.Instance.PlaySound(SoundManager.SoundList.GRAB);
                 isPicking = true;
             }
         }
@@ -71,6 +71,7 @@ public class PlayerInventory : MonoBehaviour
                         numChampignon++;
                         break;
                 }
+
                 isPicking = false;
                 pickableEnCours.gameObject.SetActive(false);
                 pickableEnCours = null;
