@@ -1283,6 +1283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db968891b1badf44b81d68093a1f69fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  surBuisson: 0
   surFeuillage: 0
   time: 10
   walk_speed: 1
@@ -1437,6 +1438,40 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 981069592861705827, guid: c5ef10444b2974e459ba8954af0468fd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8399586560275707678, guid: c5ef10444b2974e459ba8954af0468fd,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1907851064, guid: c5ef10444b2974e459ba8954af0468fd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853224352649113833, guid: c5ef10444b2974e459ba8954af0468fd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853224352649113833, guid: c5ef10444b2974e459ba8954af0468fd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853224352649113833, guid: c5ef10444b2974e459ba8954af0468fd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853224352410757654, guid: c5ef10444b2974e459ba8954af0468fd,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5ef10444b2974e459ba8954af0468fd, type: 3}

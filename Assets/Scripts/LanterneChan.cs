@@ -34,7 +34,7 @@ public class LanterneChan : MonoBehaviour
             if (currentScale < minScale)
                 currentScale = minScale;
 
-            currentScale += Mathf.Sin(Time.time * 1.5f) * 0.2f;
+            currentScale += Mathf.Sin(Time.time * 4.2f) * 0.2f;
             transform.localScale = new Vector3(currentScale, currentScale);
         }
     }
