@@ -25,5 +25,6 @@ public class PlayerAnimation : MonoBehaviour
 
         animator.speed = Mathf.Max(Mathf.Abs(horizontal), Mathf.Abs(vertical));
         //TODO Ajouter condition pour le pickup
+        
     }
 }

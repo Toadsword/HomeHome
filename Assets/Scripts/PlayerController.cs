@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = GameInput.GetAxisRaw(GameInput.AxisType.HORIZONTAL);
         vertical = GameInput.GetAxisRaw(GameInput.AxisType.VERTICAL);
-
+        
         horizontal *= speed;
         vertical *= speed;
     }
