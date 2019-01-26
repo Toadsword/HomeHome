@@ -60,7 +60,7 @@ public class DialoguesManager : MonoBehaviour {
     void creerDialogues() {
         Dialogue dialogue1 = new Dialogue(new List<string>
         {
-            "Comme je suis ravie que tu rendes visite à ta grand-mère, Sweetie.",
+            "Comme je suis ravie que tu rendes visite à ta grand-mère, Rouge.",
             "Je comptais te préparer une bonne soupe chaude pour te revigorer du froid hivernale.",
             "Cela te ferait du bien, tu es toute maigrelette, mais je n'ai plus de champignons...",
             "Peux-tu aller en chercher 3 pendant que je prépare le potage ?",
@@ -77,7 +77,7 @@ public class DialoguesManager : MonoBehaviour {
 
         Dialogue dialogue3 = new Dialogue(new List<string>
         {
-            "Te voilà, Sweetie ! J'allais m'inquiéter.",
+            "Te voilà, Rouge ! J'allais m'inquiéter.",
             "Heureusement, c'est un bois très tranquille. Et magnifique en pleine journée.",
             "J'ai une idée, et si on faisait plus de soupe pour ta mère, elle sera contente !",
             "Je pense qu'avec 5 champignons supplémentaires, il y aura assez."

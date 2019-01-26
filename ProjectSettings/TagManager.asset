@@ -8,6 +8,8 @@ TagManager:
   - Sweet
   - Feuillage
   - Loup
+  - Buisson
+  - Arbre
   layers:
   - Default
   - TransparentFX

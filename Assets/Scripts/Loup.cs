@@ -47,6 +47,20 @@ public class Loup : MonoBehaviour
     //current direction of the wolf
     private Vector3 direction;
 
+    //Destruction Arbre
+    float timer_destruction_arbre=0;//sec
+    float duree_destruction_arbre = 1;//sec
+    bool enDestructionArbre=false;
+    GameObject arbreEnCoursDestruction = null;
+    [SerializeField]
+    Pickable brindillePrefab;
+
+    float timer_griffure = 0;
+    int nb_griffures = 2;
+    float timer_tremblement_arbre = 0;
+    float duree_tremblement_arbre = 0.2f;
+    Vector3 posArbreInitiale = new Vector3(0,0,0);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,39 +71,40 @@ public class Loup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        --timer;
-        
-        UpdateState();
+        if (enDestructionArbre) {
+            gestionDestructionArbre();
+        } else {
+            --timer;
 
-        //the wolf attack
-        if (state == 3)
-            RunToGirl();
+            UpdateState();
 
-        //the wolf walk randomly following last noise
-        else if (state < 3)
-        {
-            if (timer <= 0)
-            {
-                WanderAround();
-                timer = time;
+            //the wolf attack
+            if (state == 3)
+                RunToGirl();
+
+            //the wolf walk randomly following last noise
+            else if (state < 3) {
+                if (timer <= 0) {
+                    WanderAround();
+                    timer = time;
+                }
             }
+
+            //teleport the wolf if too far
+            float dist_sweety = Vector3.Distance(transform.position, sweet.transform.position);
+            if (dist_sweety > distance_too_far) {
+                float theta = Random.Range(0f, 2 * Mathf.PI);
+                Vector3 new_pos = sweet.transform.position + distances[0] * new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
+                transform.position = new_pos;
+            }
+
+            //move the wolf
+            float alpha = 1.0f;
+            if (surFeuillage)
+                alpha = 0.5f;
+
+            rigid.velocity = current_speed * direction * alpha;
         }
-
-        //teleport the wolf if too far
-        float dist_sweety = Vector3.Distance(transform.position, sweet.transform.position);
-        if(dist_sweety > distance_too_far)
-        {
-            float theta = Random.Range(0f, 2 * Mathf.PI);
-            Vector3 new_pos = sweet.transform.position + distances[0] * new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
-            transform.position = new_pos;
-        }
-
-        //move the wolf
-        float alpha = 1.0f;
-        if(surFeuillage)
-            alpha = 0.5f;
-
-        rigid.velocity = current_speed * direction * alpha;
     }
 
     void RunToGirl()
@@ -192,4 +207,60 @@ public class Loup : MonoBehaviour
         RaycastHit2D r = Physics2D.CircleCast(a, radius, b - a, Vector3.Distance(b, a),1<<8);
         return r;
     }
+
+    void gestionDestructionArbre() {
+        //cette partie gère la destruction d'un arbre par le loup
+        timer_destruction_arbre += Time.deltaTime;
+
+
+        if (timer_destruction_arbre >= duree_destruction_arbre) {
+            enDestructionArbre = false;
+            //supprimer/remplacer arbre
+            if (arbreEnCoursDestruction != null) {
+                int nb_brindilles = (int)(Random.value * 3 + 1);
+                for (int i = 0; i < nb_brindilles; ++i) {
+                    Pickable brind = GameObject.Instantiate(brindillePrefab);
+                    float angle_rad = 2 * Mathf.PI / (float)nb_brindilles * (float)i;
+                    float rayon = 3;
+                    Vector3 deplacement = new Vector3(Mathf.Cos(angle_rad), Mathf.Sin(angle_rad), 0) * rayon;
+                    brind.transform.position = arbreEnCoursDestruction.transform.position;
+                    brind.GetComponent<Pickable>().lancerAnimation(deplacement);
+                }
+                Destroy(arbreEnCoursDestruction);
+                arbreEnCoursDestruction = null;
+            }
+        }
+
+
+        timer_griffure += Time.deltaTime;
+
+        if (timer_griffure > duree_destruction_arbre / nb_griffures) {
+            timer_griffure -= duree_destruction_arbre / nb_griffures;
+            //lancer tremblement arbre
+            timer_tremblement_arbre = duree_tremblement_arbre;
+            
+        }
+
+        if (arbreEnCoursDestruction != null) {
+            if (timer_tremblement_arbre > 0) {
+                timer_tremblement_arbre -= Time.deltaTime;
+                arbreEnCoursDestruction.transform.position = posArbreInitiale + new Vector3(0.1f * Mathf.Cos(timer_tremblement_arbre / duree_tremblement_arbre * 2 * Mathf.PI * 2), 0, 0);
+            } else {
+                timer_tremblement_arbre = 0;
+                arbreEnCoursDestruction.transform.position = posArbreInitiale;
+            }
+        }
+        rigid.velocity = current_speed * direction * 0;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.tag == "Arbre" && other.gameObject!=arbreEnCoursDestruction) {
+            enDestructionArbre = true;
+            timer_destruction_arbre = 0;
+            timer_griffure = 0;
+            arbreEnCoursDestruction = other.gameObject;
+            posArbreInitiale = arbreEnCoursDestruction.transform.position;
+        }
+    }
+
 }

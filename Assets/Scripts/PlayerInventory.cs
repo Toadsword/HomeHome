@@ -12,6 +12,11 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private int maxInventory = 20;
 
     [SerializeField] private List<Transform> closestPickable;
+
+    float timer_pick = 0;
+    float duree_pick = 1.0f;//sec
+    Transform pickableEnCours = null;
+    public bool isPicking { get; private set; }
      
     // Start is called before the first frame update
     void Start()
@@ -19,18 +24,22 @@ public class PlayerInventory : MonoBehaviour
         numBaie = 0;
         numBrindille = 0;
         numChampignon = 0;
+        isPicking = false;
     }
 
     void Update()
     {
+        //récupération pickable plus proche
         if (GameInput.GetInputDown(GameInput.InputType.ACTION))
         {
+            Debug.Log("Size : " + closestPickable.Count);
             Transform closestOne = null;
             float minDist = Mathf.Infinity;
             Vector3 currentPos = transform.position;
             foreach (Transform t in closestPickable)
             {
                 float dist = Vector3.Distance(t.position, currentPos);
+                Debug.Log("Dist : " + dist);
                 if (dist < minDist)
                 {
                     closestOne = t;
@@ -40,8 +49,18 @@ public class PlayerInventory : MonoBehaviour
 
             if (closestOne != null)
             {
-                switch (closestOne.gameObject.GetComponent<Pickable>().typePickable)
-                {
+                pickableEnCours = closestOne;
+                timer_pick = 0;
+                isPicking = true;
+            }
+        }
+
+        //gestion temps d'attente pour pick
+        if (timer_pick < duree_pick) {
+            timer_pick += Time.deltaTime;
+
+            if (timer_pick > duree_pick) {
+                switch (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable) {
                     case Pickable.PickableType.BAIE:
                         numBaie++;
                         break;
@@ -52,9 +71,12 @@ public class PlayerInventory : MonoBehaviour
                         numChampignon++;
                         break;
                 }
-                closestOne.gameObject.SetActive(false);
-                closestPickable.Remove(closestOne);
+                isPicking = false;
+                pickableEnCours.gameObject.SetActive(false);
+                pickableEnCours = null;
+                closestPickable.Remove(pickableEnCours);
             }
+
         }
     }
 
