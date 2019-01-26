@@ -21,15 +21,22 @@ public class LanterneChan : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeRemaining -= Time.deltaTime;
-        currentScale = timeRemaining / timeForOneScale;
-        if (currentScale > maxScale)
-            currentScale = maxScale;
-        if (currentScale < minScale)
-            currentScale = minScale;
+        if (timeRemaining <= 0.0f)
+        {
+            transform.localScale = new Vector3(0,0,0);
+        }
+        else
+        {
+            timeRemaining -= Time.deltaTime;
+            currentScale = timeRemaining / timeForOneScale;
+            if (currentScale > maxScale)
+                currentScale = maxScale;
+            if (currentScale < minScale)
+                currentScale = minScale;
 
-        currentScale += Mathf.Sin(Time.time * 1.5f) * 0.2f;
-        transform.localScale = new Vector3(currentScale, currentScale);
+            currentScale += Mathf.Sin(Time.time * 1.5f) * 0.2f;
+            transform.localScale = new Vector3(currentScale, currentScale);
+        }
     }
 
     public void ResetLanterneTimer()
