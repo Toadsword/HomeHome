@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 1853224351439058720}
   - component: {fileID: 1853224351439058721}
   - component: {fileID: 1853224351439058716}
-  - component: {fileID: 1853224351439058717}
+  - component: {fileID: 1440664742}
   m_Layer: 0
   m_Name: Player
   m_TagString: Sweet
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1853224351439058718}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60ea2bcdd0b173a4e947a731cdab8eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 32cf3e3e8577f3248998c07d40133550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1853224352007188426

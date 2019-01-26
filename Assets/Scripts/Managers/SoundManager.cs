@@ -5,10 +5,24 @@ using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
+    static SoundManager _instance;
+    public static SoundManager Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
 
-    public static SoundManager _instance;
+    private void Awake()
+    {
+        if (_instance == null)
+            _instance = this;
+        else if (_instance != this)
+            Destroy(gameObject);
+    }
+   
     List<AudioSource> emitters = new List<AudioSource>();
-
     public enum SoundList
     {
         PAS,
@@ -75,14 +89,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] GameObject emitterPrefab;
     [SerializeField] int emitterNumber;
     [SerializeField] AudioSource musicEmitter;
-
-    private void Awake()
-    {
-        if(_instance)
-            Destroy(gameObject);
-        else
-            _instance = this;
-    }
 
     // Use this for initialization
     void Start ()

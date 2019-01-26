@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Dialogue
 {
+    private bool unSurDeux = false;
+
     int indice_courant;
     public List<string> textes_fr { get; private set; }
     //conditions de réussite
@@ -11,7 +13,7 @@ public class Dialogue
     public int nb_brindilles { get; private set; }
     public int nb_baies { get; private set; }
 
-    public Dialogue(List<string> txt_fr, int _nb_champignons, int _nb_brindilles, int _nb_baies) {
+    public Dialogue(List<string> txt_fr, int _nb_champignons, int _nb_baies, int _nb_brindilles) {
         indice_courant = 0;
         textes_fr = txt_fr;
 
@@ -25,7 +27,11 @@ public class Dialogue
         return (nb_champignons <= _nb_champignons && nb_brindilles <= _nb_brindilles && nb_baies <= _nb_baies);
     }
 
-    public string texteEnCours() {
+    public string texteEnCours()
+    {
+        if(unSurDeux)
+            SoundManager.Instance.PlaySound(SoundManager.SoundList.DIALOGUE);
+        unSurDeux = !unSurDeux;
         return textes_fr[indice_courant];
     }
 
