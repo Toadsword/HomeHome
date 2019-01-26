@@ -168,6 +168,7 @@ public class Loup : MonoBehaviour
     {
         noise_precision = noise_precisions[state];
         last_noise_pos = pos;
+        SoundManager.Instance.PlaySound(SoundManager.SoundList.LOUP_GROGNEMENT);
     }
 
     //se balader
@@ -237,7 +238,8 @@ public class Loup : MonoBehaviour
             timer_griffure -= duree_destruction_arbre / nb_griffures;
             //lancer tremblement arbre
             timer_tremblement_arbre = duree_tremblement_arbre;
-            
+            SoundManager.Instance.PlaySound(SoundManager.SoundList.GRAB);
+            SoundManager.Instance.PlaySound(SoundManager.SoundList.CLIC);
         }
 
         if (arbreEnCoursDestruction != null) {
@@ -264,11 +266,13 @@ public class Loup : MonoBehaviour
 
     public void SetSurBuisson(bool b)
     {
-        surBuisson = b;
+        surBuisson = b;    
+        SoundManager.Instance.PlaySound(SoundManager.SoundList.BUISSON);
     }
     public void SetSurFeuillage(bool b)
     {
         surFeuillage = b;
+        SoundManager.Instance.PlaySound(SoundManager.SoundList.FEUILLAGE);
     }
 
 }

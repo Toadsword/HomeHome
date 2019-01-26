@@ -38,7 +38,6 @@ public class PlayerInventory : MonoBehaviour
             foreach (Transform t in closestPickable)
             {
                 float dist = Vector3.Distance(t.position, currentPos);
-                Debug.Log("Dist : " + dist);
                 if (dist < minDist)
                 {
                     closestOne = t;
