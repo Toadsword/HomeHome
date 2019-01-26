@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigid;
 
     private float horizontal, vertical;
+    public bool surFeuillage;
 
     // Start is called before the first frame update
     void Start()

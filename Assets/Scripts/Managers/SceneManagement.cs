@@ -7,6 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
+    static SceneManagement _instance;
+    public static SceneManagement Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (_instance == null)
+            _instance = this;
+        else if (_instance != this)
+            Destroy(gameObject);
+    }
+
     const float MAX_FADE_OPACITY = 1.0f;
 
     public enum Scenes
@@ -18,28 +35,30 @@ public class SceneManagement : MonoBehaviour
     }
 
     [Header("Fade")]
-    [SerializeField] Image blackFadeObject;
-    [SerializeField] float fadeDuration = 2.0f;
+    [SerializeField] private Image blackFadeObject;
+    [SerializeField] private float fadeDuration = 2.0f;
     private float fadeTimer;
-    private float faceOpacity = 1.0f;
+    [SerializeField] private float faceOpacity = 1.0f;
 
-    private string sceneNameMenu = "MainMenu";
-    private string sceneNameGame = "MainGame";
-    private string sceneNameMapGeneration = "MapGeneration";
-    private string sceneNameEndGame = "EndGame";
+    [Header("SceneName")]
+    [SerializeField] private string sceneNameMenu = "Menu";
+    [SerializeField] private string sceneNameOverworld = "SampleSceneDuncan";
+    [SerializeField] private string sceneNameHouse = "SampleSceneDuncan";
+    [SerializeField] private string sceneNameEndGame = "EndGame";
 
     private bool isChangingScene = false;
     private bool isLoadingScene = false;
     private Scenes nextScene;
     AsyncOperation asyncScene;
 
-    //private GameManager gameManager;
-
     // Use this for initialization
     void Start()
     {
-        DontDestroyOnLoad(transform.gameObject);
-        //gameManager = FindObjectOfType<GameManager>();
+        GameObject startPanel = GameObject.Find("StartPanel");
+        if(startPanel != null)
+            MenuManager.Instance.SetupMenuBtns(startPanel.transform, true);
+
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -92,13 +111,13 @@ public class SceneManagement : MonoBehaviour
         switch (scene)
         {
             case Scenes.OVERWORLD:
-                sceneName = sceneNameMenu;
+                sceneName = sceneNameOverworld;
                 break;
             case Scenes.HOUSE:
-                sceneName = sceneNameGame;
+                sceneName = sceneNameHouse;
                 break;
             case Scenes.MENU:
-                sceneName = sceneNameMapGeneration;
+                sceneName = sceneNameMenu;
                 break;
             case Scenes.END_GAME:
                 sceneName = sceneNameEndGame;
@@ -107,17 +126,28 @@ public class SceneManagement : MonoBehaviour
         return sceneName;
     }
 
-    private void FadeAnimation(bool DoAddOpacity)
+    private void FadeAnimation(bool doAddOpacity)
     {
         Color color = blackFadeObject.color;
-        if (DoAddOpacity)
-        {
+        if (doAddOpacity)
             color.a = MAX_FADE_OPACITY - (MAX_FADE_OPACITY * Utility.GetTimerRemainingTime(fadeTimer) / fadeDuration);
-        }
         else
-        {
             color.a = MAX_FADE_OPACITY * Utility.GetTimerRemainingTime(fadeTimer) / fadeDuration;
-        }
         blackFadeObject.color = color;
+    }
+
+    private void SetupScene(Scenes sceneName)
+    {
+        switch (sceneName)
+        {
+            case Scenes.HOUSE:
+                break;
+            case Scenes.MENU:
+                break;
+            case Scenes.OVERWORLD:
+                break;
+            case Scenes.END_GAME:
+                break;
+        }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Loup : MonoBehaviour
 {
+    public bool surFeuillage = false;
+
 	private Rigidbody2D rigid;
     
     //distance of the new target point from the current wolf position
@@ -15,6 +17,8 @@ public class Loup : MonoBehaviour
     private float walk_speed = 1.0f;
     [SerializeField]
     private float run_speed = 2.0f;
+
+    float current_speed = 0.0f;
 
     [SerializeField]
     private GameObject sweet;
@@ -79,6 +83,12 @@ public class Loup : MonoBehaviour
             transform.position = new_pos;
         }
 
+        //move the wolf
+        float alpha = 1.0f;
+        if(surFeuillage)
+            alpha = 0.5f;
+
+        rigid.velocity = current_speed * direction * alpha;
     }
 
     void RunToGirl()
@@ -128,17 +138,15 @@ public class Loup : MonoBehaviour
                     }
                 }
             }
-            Debug.Log(best_point);
             direction = Vector3.Normalize(points[best_point] - transform.position);
 
         }
         else
         {
-            Debug.Log("non");
             direction = Vector3.Normalize(sweet.transform.position - transform.position);
         }
 
-        rigid.velocity = run_speed * direction;
+        current_speed = run_speed;
     }
 
     void HearNoise()
@@ -160,13 +168,11 @@ public class Loup : MonoBehaviour
             float theta = Vector3.Angle(sweet.transform.position - transform.position, Vector3.right) + theta_rand;
             float delta = Random.Range(0.5f, 1.5f);
             direction = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
-            rigid.velocity = walk_speed * direction;
+            current_speed =  walk_speed;
         }
-
-        else if (action_to_do == 0)
+        if(action_to_do==0)
         {
-            //it makes a little break
-            rigid.velocity = new Vector3(0, 0, 0);
+            current_speed = 0.0f;
         }
     }
 
