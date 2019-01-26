@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Loup : MonoBehaviour
 {
+    public bool surBuisson = false;
     public bool surFeuillage = false;
 
 	private Rigidbody2D rigid;

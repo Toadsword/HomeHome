@@ -7,10 +7,12 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 5;
 
+    public bool surBuisson = false;
+    public bool surFeuillage = false;
+
     private Rigidbody2D rigid;
 
     private float horizontal, vertical;
-    public bool surFeuillage;
 
     // Start is called before the first frame update
     void Start()
