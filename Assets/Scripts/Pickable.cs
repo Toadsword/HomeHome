@@ -9,7 +9,8 @@ public class Pickable : MonoBehaviour
     {
         BAIE,
         BRINDILLE,
-        CHAMPIGNON
+        CHAMPIGNON,
+        DOOR
     }
 
     float timer_animation = 0;//sec
