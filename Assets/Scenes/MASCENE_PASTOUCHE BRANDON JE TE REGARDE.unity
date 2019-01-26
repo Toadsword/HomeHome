@@ -1815,6 +1815,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2127650346}
   - component: {fileID: 2127650347}
+  - component: {fileID: 2127650348}
   m_Layer: 0
   m_Name: MoveableSpriteMask
   m_TagString: Untagged
@@ -1884,3 +1885,19 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2127650348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127650345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed9a785fcb252cc4a8eb4417946f30cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxScale: 2.5
+  minScale: 1
+  timeForOneScale: 120
+  timeRemaining: 0
