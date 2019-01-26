@@ -11,8 +11,14 @@ public class SoundManager : MonoBehaviour
 
     public enum SoundList
     {
-        WALK,
-        WOLF
+        PAS,
+        BUISSON,
+        LOUP_CRI,
+        LOUP_GROGNEMENT,
+        CLIC,
+        DIALOGUE,
+        FEUILLAGE,
+        GRAB
     }
 
     public enum MusicList
@@ -32,19 +38,33 @@ public class SoundManager : MonoBehaviour
 
     MusicList currentMusicPlaying = MusicList.NONE;
 
-    List<AudioClip> listWalkSounds = new List<AudioClip>();
-    List<AudioClip> listDemonNoiseSounds = new List<AudioClip>();
+    List<AudioClip> listPasSounds = new List<AudioClip>();
+    List<AudioClip> listBuissonSounds = new List<AudioClip>();
+    List<AudioClip> listFeuillageSounds = new List<AudioClip>();
 
     [Header("VolumeSounds")]
     [SerializeField] AudioMixer audioMixer;
 
     [Header("Sounds")]
-    [SerializeField] AudioClip wolfClip;
+    [SerializeField] AudioClip loupCriClip;
+    [SerializeField] AudioClip loupGrognementClip;
+    [SerializeField] AudioClip clicClip;
+    [SerializeField] AudioClip dialogueClip;
+    [SerializeField] AudioClip grabClip;
 
-    [Header("WalkClips")]
-    [SerializeField] AudioClip walkClip1;
-    [SerializeField] AudioClip walkClip2;
-    [SerializeField] AudioClip walkClip3;
+    [Header("pasClips")]
+    [SerializeField] AudioClip pasClip1;
+    [SerializeField] AudioClip pasClip2;
+    [SerializeField] AudioClip pasClip3;
+    [SerializeField] AudioClip pasClip4;
+
+    [Header("Buisson")]
+    [SerializeField] AudioClip buissonClip1;
+    [SerializeField] AudioClip buissonClip2;
+
+    [Header("Feuillage")]
+    [SerializeField] AudioClip feuillageClip1;
+    [SerializeField] AudioClip feuillageClip2;
 
     [Header("Musics")]
     [SerializeField] AudioClip menuMusicClip;
@@ -76,7 +96,9 @@ public class SoundManager : MonoBehaviour
             DontDestroyOnLoad(audioObject);
         }
 
-        listWalkSounds = new List<AudioClip>{walkClip1, walkClip2, walkClip3};
+        listPasSounds = new List<AudioClip>{ pasClip1, pasClip2, pasClip3, pasClip4};
+        listBuissonSounds = new List<AudioClip>{ buissonClip1, buissonClip2};
+        listFeuillageSounds= new List<AudioClip>{ feuillageClip1, feuillageClip2};
     }
 
     private void Update()
@@ -111,14 +133,40 @@ public class SoundManager : MonoBehaviour
             Debug.Log(sound.ToString());
             switch (sound)
             {
-                case SoundList.WALK:
-                    int indexWalk = Random.Range(0, listWalkSounds.Count);
-                    emitterAvailable.clip = listWalkSounds[indexWalk];
-                    emitterAvailable.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Player")[0];
+                case SoundList.PAS:
+                    int indexWalk = Random.Range(0, listPasSounds.Count);
+                    emitterAvailable.clip = listPasSounds[indexWalk];
+                    emitterAvailable.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Marche")[0];
                     break;
-                case SoundList.WOLF:
-                    emitterAvailable.clip = wolfClip;
-                    emitterAvailable.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Environment")[0];
+                case SoundList.BUISSON:
+                    int indexBuisson = Random.Range(0, listBuissonSounds.Count);
+                    emitterAvailable.clip = listBuissonSounds[indexBuisson];
+                    emitterAvailable.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Buisson")[0];
+                    break;
+                case SoundList.LOUP_CRI:
+                    emitterAvailable.clip = loupCriClip;
+                    emitterAvailable.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Cri")[0];
+                    break;
+                case SoundList.LOUP_GROGNEMENT:
+                    emitterAvailable.clip = loupGrognementClip;
+                    emitterAvailable.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Grognement")[0];
+                    break;
+                case SoundList.CLIC:
+                    emitterAvailable.clip = clicClip;
+                    emitterAvailable.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Clic")[0];
+                    break;
+                case SoundList.DIALOGUE:
+                    emitterAvailable.clip = dialogueClip;
+                    emitterAvailable.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Dialogue")[0];
+                    break;
+                case SoundList.FEUILLAGE:
+                    int indexFeuillage = Random.Range(0, listFeuillageSounds.Count);
+                    emitterAvailable.clip = listFeuillageSounds[indexFeuillage];
+                    emitterAvailable.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Feuillage")[0];
+                    break;
+                case SoundList.GRAB:
+                    emitterAvailable.clip = grabClip;
+                    emitterAvailable.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Ramasser")[0];
                     break;
             }
 
@@ -156,6 +204,14 @@ public class SoundManager : MonoBehaviour
                     break;
                 case MusicList.MENU:
                     musicEmitter.clip = menuMusicClip;
+                    musicEmitter.Play();
+                    break;
+                case MusicList.HOUSE:
+                    musicEmitter.clip = houseMusicClip;
+                    musicEmitter.Play();
+                    break;
+                case MusicList.OVERWORLD:
+                    musicEmitter.clip = overworldMusicClip;
                     musicEmitter.Play();
                     break;
             }
