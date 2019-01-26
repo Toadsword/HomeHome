@@ -11,7 +11,7 @@ public class Dialogue
     public int nb_brindilles { get; private set; }
     public int nb_baies { get; private set; }
 
-    public Dialogue(List<string> txt_fr, int _nb_champignons, int _nb_brindilles, int _nb_baies) {
+    public Dialogue(List<string> txt_fr, int _nb_champignons, int _nb_baies, int _nb_brindilles) {
         indice_courant = 0;
         textes_fr = txt_fr;
 
