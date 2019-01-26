@@ -12,7 +12,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private int maxInventory = 20;
 
     [SerializeField] private List<Transform> closestPickable;
-
+     
     // Start is called before the first frame update
     void Start()
     {
