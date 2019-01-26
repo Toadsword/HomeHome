@@ -13,8 +13,8 @@ public class PlayerInventory : MonoBehaviour
 
     [SerializeField] private List<Transform> closestPickable;
 
-    float timer_pick = 0;
     float duree_pick = 1.0f;//sec
+    float timer_pick = 1.0f;
     Transform pickableEnCours = null;
     public bool isPicking { get; private set; }
      
