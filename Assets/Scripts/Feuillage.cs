@@ -18,17 +18,17 @@ public class Feuillage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag=="Sweet") {
-            other.GetComponent<PlayerController>().surFeuillage = true;
+            other.GetComponent<PlayerController>().SetSurFeuillage(true);
         }else if (other.tag == "Loup") {
-            other.GetComponent<Loup>().surFeuillage = true;
+            other.GetComponent<Loup>().SetSurFeuillage(true);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
         if (other.tag == "Sweet") {
-            other.GetComponent<PlayerController>().surFeuillage = false;
+            other.GetComponent<PlayerController>().SetSurFeuillage(false);
         }else if (other.tag == "Loup") {
-            other.GetComponent<Loup>().surFeuillage = false;
+            other.GetComponent<Loup>().SetSurFeuillage(false);
         }
     }
 }
