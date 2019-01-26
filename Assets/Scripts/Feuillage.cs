@@ -20,7 +20,7 @@ public class Feuillage : MonoBehaviour
         if (other.tag=="Sweet") {
             other.GetComponent<PlayerController>().surFeuillage = true;
         }else if (other.tag == "Loup") {
-            //other.GetComponent<Loup>().surFeuillage = true;
+            other.GetComponent<Loup>().surFeuillage = true;
         }
     }
 
@@ -28,7 +28,7 @@ public class Feuillage : MonoBehaviour
         if (other.tag == "Sweet") {
             other.GetComponent<PlayerController>().surFeuillage = false;
         }else if (other.tag == "Loup") {
-            //other.GetComponent<Loup>().surFeuillage = false;
+            other.GetComponent<Loup>().surFeuillage = false;
         }
     }
 }
