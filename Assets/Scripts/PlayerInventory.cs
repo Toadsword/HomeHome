@@ -57,8 +57,13 @@ public class PlayerInventory : MonoBehaviour
             if (closestOne != null) {
                 pickableEnCours = closestOne;
                 timer_pick = 0;
-                SoundManager.Instance.PlaySound(SoundManager.SoundList.GRAB);
                 isPicking = true;
+                if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR)
+                {
+                    SoundManager.Instance.PlaySound(SoundManager.SoundList.GRAB);
+                    playerAnimation.animator.SetBool("Pickup", true);
+                    playerAnimation.animator.speed = 1;
+                }
             } else if(numCailloux>0){
                 numCailloux--;
                 Pickable caillou = null;
@@ -87,7 +92,6 @@ public class PlayerInventory : MonoBehaviour
         //gestion temps d'attente pour pick
         if (timer_pick < duree_pick) {
             timer_pick += Time.deltaTime;
-            playerAnimation.animator.SetBool("Pickup", true);
             if (timer_pick > duree_pick) {
                 switch (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable) {
                     case Pickable.PickableType.BAIE:
@@ -104,12 +108,17 @@ public class PlayerInventory : MonoBehaviour
                         break;
                 }
 
-                playerAnimation.animator.SetBool("Pickup", false);
-                isPicking = false;
-                //pickableEnCours.gameObject.SetActive(false); <- haha gronul
-                Destroy(pickableEnCours.gameObject);
-                pickableEnCours = null;
-                closestPickable.Remove(pickableEnCours);
+
+                if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR)
+                {
+                    playerAnimation.animator.SetBool("Pickup", false);
+
+                    isPicking = false;
+                    //pickableEnCours.gameObject.SetActive(false); <- haha gronul
+                    Destroy(pickableEnCours.gameObject);
+                    pickableEnCours = null;
+                    closestPickable.Remove(pickableEnCours);
+                }
             }
 
         }

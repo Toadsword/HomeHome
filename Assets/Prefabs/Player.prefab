@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1907851064
 Transform:
   m_ObjectHideFlags: 0
@@ -178,6 +178,7 @@ MonoBehaviour:
   numBaie: 0
   numBrindille: 0
   numChampignon: 0
+  numCailloux: 0
   maxInventory: 20
   playerAnimation: {fileID: 2962802248729549232}
   closestPickable: []
@@ -409,7 +410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1853224352410757655
 Transform:
   m_ObjectHideFlags: 0
@@ -786,6 +787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  playerInventory: {fileID: 1853224351439058720}
 --- !u!212 &1358171885718352612
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -823,7 +825,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 60481b16c7ef0064cbed2bb1923b8ae8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cd915be12d2e5f346ae87f85a7adb6cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1065414217038719391}
   - component: {fileID: 2865098724695953666}
   - component: {fileID: 8468683054316921824}
+  - component: {fileID: 4996594847791145297}
   m_Layer: 0
   m_Name: Caillou
   m_TagString: Pickable
@@ -124,3 +125,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typePickable: 0
+--- !u!114 &4996594847791145297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4437714750109052986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ea2bcdd0b173a4e947a731cdab8eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
