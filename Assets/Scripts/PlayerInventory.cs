@@ -5,14 +5,12 @@ using UnityEngine.Experimental.PlayerLoop;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [SerializeField] private int numBaie = 0;
-    [SerializeField] private int numBrindille = 0;
-    [SerializeField] private int numChampignon = 0;
-    [SerializeField] private int numCailloux = 0;
-
-    [SerializeField] private int maxInventory = 20;
+    [SerializeField] public int numBaie = 0;
+    [SerializeField] public int numBrindille = 0;
+    [SerializeField] public int numChampignon = 0;
+    [SerializeField] public int numCailloux = 0;
+    
     [SerializeField] private PlayerAnimation playerAnimation;
-
     [SerializeField] private List<Transform> closestPickable;
 
     [SerializeField] Pickable caillouPrefab1;
@@ -44,8 +42,14 @@ public class PlayerInventory : MonoBehaviour
             Transform closestOne = null;
             float minDist = Mathf.Infinity;
             Vector3 currentPos = transform.position;
+
+            Pickable.PickableType currentMission = DialoguesManager.Instance.CurrentCondition();
             foreach (Transform t in closestPickable)
             {
+                if (t.GetComponent<Pickable>().typePickable != currentMission && 
+                    t.GetComponent<Pickable>().typePickable != Pickable.PickableType.CAILLOU)
+                    continue;
+
                 float dist = Vector3.Distance(t.position, currentPos);
                 if (dist < minDist)
                 {
@@ -67,22 +71,20 @@ public class PlayerInventory : MonoBehaviour
             } else if(numCailloux>0){
                 numCailloux--;
                 Pickable caillou = null;
-                int hasard = (int)(Random.value * 100) % 6;
-                if(hasard==0)
-                    caillou= GameObject.Instantiate(caillouPrefab1);
-                if (hasard == 1)
-                    caillou = GameObject.Instantiate(caillouPrefab2);
-                if (hasard == 2)
-                    caillou = GameObject.Instantiate(caillouPrefab3);
-                if (hasard == 3)
-                    caillou = GameObject.Instantiate(caillouPrefab4);
-                if (hasard == 4)
-                    caillou = GameObject.Instantiate(caillouPrefab5);
-                if (hasard == 5)
-                    caillou = GameObject.Instantiate(caillouPrefab6);
+                int hasard = (Random.Range(0,6));
+                if (hasard==0) caillou= GameObject.Instantiate(caillouPrefab1);
+                if (hasard == 1) caillou = GameObject.Instantiate(caillouPrefab2);
+                if (hasard == 2) caillou = GameObject.Instantiate(caillouPrefab3);
+                if (hasard == 3) caillou = GameObject.Instantiate(caillouPrefab4);
+                if (hasard == 4) caillou = GameObject.Instantiate(caillouPrefab5);
+                if (hasard == 5) caillou = GameObject.Instantiate(caillouPrefab6);
+
                 float rayon = 3;
                 float x = 1;
-                if (Random.value > 0.5) x = -1;
+
+                if (Random.value > 0.5)
+                    x = -1;
+
                 Vector3 deplacement = new Vector3(x,0, 0) * rayon;
                 caillou.transform.position = transform.position;
                 caillou.GetComponent<Pickable>().lancerAnimation(deplacement);
@@ -107,14 +109,12 @@ public class PlayerInventory : MonoBehaviour
                         numCailloux++;
                         break;
                 }
-
-
+                
                 if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR)
                 {
                     playerAnimation.animator.SetBool("Pickup", false);
 
                     isPicking = false;
-                    //pickableEnCours.gameObject.SetActive(false); <- haha gronul
                     Destroy(pickableEnCours.gameObject);
                     pickableEnCours = null;
                     closestPickable.Remove(pickableEnCours);
@@ -146,19 +146,5 @@ public class PlayerInventory : MonoBehaviour
         {
             closestPickable.Remove(collider.transform);
         }
-    }
-
-
-    public int nombreBaies() {
-        return numBaie;
-    }
-    public int nombreBrindille() {
-        return numBrindille;
-    }
-    public int nombreChampignon() {
-        return numChampignon;
-    }
-    public int nombreCailloux() {
-        return numCailloux;
     }
 }

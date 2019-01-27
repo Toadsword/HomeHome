@@ -5,6 +5,23 @@ using UnityEngine.UI;
 
 public class DialoguesManager : MonoBehaviour {
 
+    static DialoguesManager _instance;
+    public static DialoguesManager Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (_instance == null)
+            _instance = this;
+        else if (_instance != this)
+            Destroy(gameObject);
+    }
+
     [SerializeField]
     Image boiteDialogue;
     [SerializeField]
@@ -159,6 +176,11 @@ public class DialoguesManager : MonoBehaviour {
     public Dialogue dialogueEnCours()
     {
         return dialogues[dialogue_courant];
+    }
+
+    public Pickable.PickableType CurrentCondition()
+    {
+        return dialogues[dialogue_courant].GetMissionType();
     }
 
     public void lancerDialogue() {

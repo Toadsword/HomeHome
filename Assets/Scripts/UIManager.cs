@@ -42,18 +42,24 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         //décider quelle image mettre à chercher (champi, baies ou brindille)
-        if (dialogueManager.dialogueEnCours().conditionEstChampignons()) {
-            ImageACueillir.sprite = champignon;
-            QuantACueillir.text = "x" + playerInventory.nombreChampignon();
-        } else if (dialogueManager.dialogueEnCours().conditionEstBaies()) {
-            ImageACueillir.sprite = baies;
-            QuantACueillir.text = "x" + playerInventory.nombreBaies();
-        } else if (dialogueManager.dialogueEnCours().conditionEstBrindilles()) {
-            ImageACueillir.sprite = brindilles;
-            QuantACueillir.text = "x" + playerInventory.nombreBrindille();
+
+        switch (DialoguesManager.Instance.CurrentCondition())
+        {
+            case Pickable.PickableType.CHAMPIGNON: 
+                ImageACueillir.sprite = champignon;
+                QuantACueillir.text = "x" + playerInventory.numChampignon;
+                break;
+            case Pickable.PickableType.BAIE: 
+                ImageACueillir.sprite = baies;
+                QuantACueillir.text = "x" + playerInventory.numBaie;
+                break;
+            case Pickable.PickableType.BRINDILLE:
+                ImageACueillir.sprite = brindilles;
+                QuantACueillir.text = "x" + playerInventory.numBrindille;
+                break;
         }
 
         //trouver quantité cailloux
-        QuantCailloux.text = "x" + playerInventory.nombreCailloux();
+        QuantCailloux.text = "x" + playerInventory.numCailloux;
     }
 }
