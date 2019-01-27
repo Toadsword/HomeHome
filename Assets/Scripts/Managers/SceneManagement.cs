@@ -79,7 +79,7 @@ public class SceneManagement : MonoBehaviour
             }
             else if (asyncScene.isDone)
             {
-                Debug.Log("SetupScene : " + GetSceneName(nextScene));
+                //Debug.Log("SetupScene : " + GetSceneName(nextScene));
                 SetupScene(nextScene);
                 isChangingScene = false;
                 isLoadingScene = false;
@@ -142,14 +142,15 @@ public class SceneManagement : MonoBehaviour
         switch (sceneName)
         {
             case Scenes.HOUSE:
+                fadeDuration = 0.7f;
                 SoundManager.Instance.PlayMusic(SoundManager.MusicList.HOUSE);
-
                 break;
             case Scenes.MENU:
                 SoundManager.Instance.PlayMusic(SoundManager.MusicList.OVERWORLD);
 
                 break;
             case Scenes.OVERWORLD:
+                fadeDuration = 0.7f;
                 SoundManager.Instance.PlayMusic(SoundManager.MusicList.OVERWORLD);
 
                 break;
