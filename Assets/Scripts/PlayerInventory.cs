@@ -53,15 +53,12 @@ public class PlayerInventory : MonoBehaviour
                 pickableEnCours = closestOne;
                 timer_pick = 0;
                 isPicking = true;
-<<<<<<< HEAD
-
                 if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR)
                 {
                     SoundManager.Instance.PlaySound(SoundManager.SoundList.GRAB);
                     playerAnimation.animator.SetBool("Pickup", true);
                     playerAnimation.animator.speed = 1;
                 }
-=======
             } else if(numCailloux>0){
                 numCailloux--;
                 Pickable caillou = GameObject.Instantiate(caillouPrefab);
@@ -71,7 +68,6 @@ public class PlayerInventory : MonoBehaviour
                 Vector3 deplacement = new Vector3(x,0, 0) * rayon;
                 caillou.transform.position = transform.position;
                 caillou.GetComponent<Pickable>().lancerAnimation(deplacement);
->>>>>>> master
             }
         }
 
