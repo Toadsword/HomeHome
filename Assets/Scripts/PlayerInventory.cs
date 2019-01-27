@@ -10,6 +10,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private int numChampignon = 0;
 
     [SerializeField] private int maxInventory = 20;
+    [SerializeField] private PlayerAnimation playerAnimation;
 
     [SerializeField] private List<Transform> closestPickable;
 
@@ -57,7 +58,7 @@ public class PlayerInventory : MonoBehaviour
         //gestion temps d'attente pour pick
         if (timer_pick < duree_pick) {
             timer_pick += Time.deltaTime;
-
+            playerAnimation.animator.SetBool("Pickup", true);
             if (timer_pick > duree_pick) {
                 switch (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable) {
                     case Pickable.PickableType.BAIE:
@@ -71,6 +72,7 @@ public class PlayerInventory : MonoBehaviour
                         break;
                 }
 
+                playerAnimation.animator.SetBool("Pickup", false);
                 isPicking = false;
                 pickableEnCours.gameObject.SetActive(false);
                 pickableEnCours = null;

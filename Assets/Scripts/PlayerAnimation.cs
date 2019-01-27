@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    private Animator animator;
+    public Animator animator;
     
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,5 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("VerticalIsBigger", Mathf.Abs(horizontal) < Mathf.Abs(vertical));
 
         animator.speed = Mathf.Max(Mathf.Abs(horizontal), Mathf.Abs(vertical));
-        //TODO Ajouter condition pour le pickup
-        
     }
 }
