@@ -99,6 +99,14 @@ public class PlayerInventory : MonoBehaviour
                     pickableEnCours = null;
                     closestPickable.Remove(pickableEnCours);
                 }
+                else
+                {
+                    // Changement de scene vers la maison ou vers dehors
+                    if(SceneManagement.Instance.currentScene == SceneManagement.Scenes.HOUSE)
+                        SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.OVERWORLD);
+                    else
+                        SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.HOUSE);
+                }
             }
 
         }

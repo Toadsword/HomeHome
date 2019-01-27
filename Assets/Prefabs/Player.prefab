@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1907851064
 Transform:
   m_ObjectHideFlags: 0
@@ -182,6 +182,7 @@ MonoBehaviour:
   maxInventory: 20
   playerAnimation: {fileID: 2962802248729549232}
   closestPickable: []
+  caillouPrefab: {fileID: 0}
 --- !u!50 &1853224351439058721
 Rigidbody2D:
   serializedVersion: 4
@@ -410,7 +411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1853224352410757655
 Transform:
   m_ObjectHideFlags: 0
