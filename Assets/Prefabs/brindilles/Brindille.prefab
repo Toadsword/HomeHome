@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7063985e63e4e41bfbb204820bd087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typePickable: 0
+  typePickable: 1
 --- !u!58 &6864696619886426050
 CircleCollider2D:
   m_ObjectHideFlags: 0
