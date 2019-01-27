@@ -14,10 +14,10 @@ public class Loup : MonoBehaviour
     private int time = 100;
 
     //speed of the wolf
-    [SerializeField]
-    private float walk_speed = 2.0f;
-    [SerializeField]
-    private float run_speed = 5.0f;
+    [SerializeField] private float walk_speed = 2.0f;
+    [SerializeField] private float[] walk_speed_lvl = {2.0f, 2.5f, 2.8f};
+    [SerializeField] private float run_speed = 5.0f;
+    [SerializeField] private float[] run_speed_lvl = { 4.0f, 5.0f, 5.5f};
 
     float current_speed = 0.0f;
 
@@ -66,6 +66,8 @@ public class Loup : MonoBehaviour
     {
 		rigid = GetComponent<Rigidbody2D>();
         state = 0;
+        run_speed = run_speed_lvl[1];
+        walk_speed = walk_speed_lvl[1];
     }
 
     // Update is called once per frame
@@ -280,6 +282,12 @@ public class Loup : MonoBehaviour
     {
         surFeuillage = b;
         SoundManager.Instance.PlaySound(SoundManager.SoundList.FEUILLAGE);
+    }
+
+    public void LeveluUp(int newLevel)
+    {
+        run_speed = run_speed_lvl[newLevel];
+        walk_speed = walk_speed_lvl[newLevel];
     }
 
 }

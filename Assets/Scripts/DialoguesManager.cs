@@ -22,22 +22,19 @@ public class DialoguesManager : MonoBehaviour {
             Destroy(gameObject);
     }
 
-    [SerializeField]
-    Image boiteDialogue;
-    [SerializeField]
-    Text texteBoiteDialogue;
+    [SerializeField] Image boiteDialogue;
+    [SerializeField] Text texteBoiteDialogue;
 
-    [SerializeField]
-    int champignons;
+    [SerializeField] int champignons;
 
-    [SerializeField]
-    int brindilles;
+    [SerializeField] int brindilles;
 
-    [SerializeField]
-    int baies;
+    [SerializeField] int baies;
 
     int dialogue_courant;//indice du tableau des dialogues
-    [SerializeField] List<Dialogue> dialogues;
+    List<Dialogue> dialogues;
+    [SerializeField] Loup loup;
+    [SerializeField] private LanterneChan lanternChan;
 
     //gestion animations
     enum Etat { ouvert, closed, enOuverture, enFermeture, enEcriture};
@@ -67,8 +64,7 @@ public class DialoguesManager : MonoBehaviour {
     void Update()
     {
         if (GameInput.GetInputUp(GameInput.InputType.ACTION)) {
-            /*lancerDialogue();
-            Debug.Log("coucou");*/
+            /*lancerDialogue();*/
         }
 
         gestionAnimations();
@@ -172,7 +168,6 @@ public class DialoguesManager : MonoBehaviour {
         }
     }
 
-
     public Dialogue dialogueEnCours()
     {
         return dialogues[dialogue_courant];
@@ -192,9 +187,9 @@ public class DialoguesManager : MonoBehaviour {
 
             if(dialogueEnCours().prochainTexte()){
                 //on est arrivé au delà de la fin, il faut fermer
-                fermeture();
-                
+                fermeture();    
             }
+
         } else if(etat==Etat.closed)
         {
             //boite fermée
@@ -204,20 +199,22 @@ public class DialoguesManager : MonoBehaviour {
             //si condition remplie, on ouvre nouveau dialogue
             if (dialogueEnCours().conditionsRemplies(champignons, brindilles, baies)) {
                 dialogue_courant++;
+
+                loup.LeveluUp((int)(dialogue_courant / 3) + 1);
+                lanternChan.LeveluUp((int)(dialogue_courant / 3) + 1);
+
                 if (dialogue_courant >= dialogues.Count) {
                     //on a terminé la dernière quête... que faire ?
                     dialogue_courant--;
                 }
             }
             dialogueEnCours().commencer();
-            
         }
     }
 
     void fermeture() {
         etat = Etat.enFermeture;
         timer_boite = duree_boite;
-    
     }
 
     void ouverture() {
@@ -225,7 +222,6 @@ public class DialoguesManager : MonoBehaviour {
         boiteDialogue.gameObject.SetActive(true);
         texteBoiteDialogue.text = "";
         timer_boite = 0;
-        
     }
 
     void gestionAnimations() {
@@ -234,9 +230,8 @@ public class DialoguesManager : MonoBehaviour {
 
             if (timer_boite >= duree_boite) {
                 etat = Etat.enEcriture;
-
-
             }
+
         } else if (etat == Etat.enFermeture) {
             timer_boite -= Time.deltaTime;
 
@@ -255,7 +250,6 @@ public class DialoguesManager : MonoBehaviour {
                 txt += dialog[i];
             }
 
-            Debug.Log("Pourcent " + pourcent);
             texteBoiteDialogue.text = txt;
 
             if (timer_ecriture >= duree_ecriture)
