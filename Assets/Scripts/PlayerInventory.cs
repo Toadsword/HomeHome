@@ -65,7 +65,10 @@ public class PlayerInventory : MonoBehaviour
         }
 
         //afficher surbrillance closestOne
-        if (closestOne != null) {
+        if (closestOne != null && ( closestOne.GetComponent<Pickable>().typePickable==Pickable.PickableType.BAIE ||
+           closestOne.GetComponent<Pickable>().typePickable == Pickable.PickableType.BRINDILLE ||
+           closestOne.GetComponent<Pickable>().typePickable == Pickable.PickableType.CHAMPIGNON ||
+           closestOne.GetComponent<Pickable>().typePickable == Pickable.PickableType.GRANNY) ) {
             surbrillance.SetActive(true);
 
             surbrillance.transform.position = closestOne.transform.position;
