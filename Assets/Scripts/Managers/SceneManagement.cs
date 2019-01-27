@@ -49,6 +49,7 @@ public class SceneManagement : MonoBehaviour
     private bool isChangingScene = false;
     private bool isLoadingScene = false;
     private Scenes nextScene;
+    public Scenes currentScene;
     AsyncOperation asyncScene;
 
     // Use this for initialization
@@ -79,7 +80,7 @@ public class SceneManagement : MonoBehaviour
             else if (asyncScene.isDone)
             {
                 Debug.Log("SetupScene : " + GetSceneName(nextScene));
-                //gameManager.SetupScene(nextScene);
+                SetupScene(nextScene);
                 isChangingScene = false;
                 isLoadingScene = false;
                 fadeTimer = Utility.StartTimer(fadeDuration);
@@ -141,13 +142,25 @@ public class SceneManagement : MonoBehaviour
         switch (sceneName)
         {
             case Scenes.HOUSE:
+                SoundManager.Instance.PlayMusic(SoundManager.MusicList.HOUSE);
+
                 break;
             case Scenes.MENU:
+                SoundManager.Instance.PlayMusic(SoundManager.MusicList.OVERWORLD);
+
                 break;
             case Scenes.OVERWORLD:
+                SoundManager.Instance.PlayMusic(SoundManager.MusicList.OVERWORLD);
+
                 break;
             case Scenes.END_GAME:
+                SoundManager.Instance.PlaySound(SoundManager.SoundList.LOUP_GROGNEMENT);
+                SoundManager.Instance.PlaySound(SoundManager.SoundList.LOUP_GROGNEMENT);
+                SoundManager.Instance.PlaySound(SoundManager.SoundList.LOUP_CRI);
+
                 break;
         }
+
+        currentScene = sceneName;
     }
 }
