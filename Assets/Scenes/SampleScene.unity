@@ -27380,8 +27380,8 @@ Transform:
   - {fileID: 1876595340}
   - {fileID: 1608050439}
   - {fileID: 322526316}
-  - {fileID: 659850064}
   - {fileID: 1755491202}
+  - {fileID: 659850064}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -41028,7 +41028,7 @@ GameObject:
   - component: {fileID: 1844736928}
   - component: {fileID: 1844736927}
   - component: {fileID: 1844736926}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: InsideDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47664,7 +47664,7 @@ PrefabInstance:
     - target: {fileID: 8102803410411676137, guid: c94e7046f8f4369479e770a12e09898d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -42.9
+      value: -41.9
       objectReference: {fileID: 0}
     - target: {fileID: 8102803410411676137, guid: c94e7046f8f4369479e770a12e09898d,
         type: 3}

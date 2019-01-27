@@ -8,6 +8,8 @@ public class Loup : MonoBehaviour
     public bool surFeuillage = false;
 
 	private Rigidbody2D rigid;
+    [SerializeField]
+    private GameObject centre_loup;
     
     //distance of the new target point from the current wolf position
     [SerializeField]
@@ -35,10 +37,10 @@ public class Loup : MonoBehaviour
     float noise_precision = 0.5f*Mathf.PI;
 
     //house
-    float x1_house = -3.5f;
-    float x2_house = 3.5f;
-    float y1_house = -1.0f;
-    float y2_house = 5.5f;
+    float x1_house = -5.5f;
+    float x2_house = 5.5f;
+    float y1_house = 0.0f;
+    float y2_house = 10.0f;
    
 
     //timer
@@ -72,9 +74,9 @@ public class Loup : MonoBehaviour
     void Update()
     {
         if(rigid.velocity.x<0)
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale =new Vector3(-1.6f, 1.6f, 1.6f);
         if (rigid.velocity.x>0)
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale =new Vector3(1.6f, 1.6f, 1.6f);
 
         if (enDestructionArbre) {
             gestionDestructionArbre();
@@ -98,9 +100,7 @@ public class Loup : MonoBehaviour
             //teleport the wolf if too far
             float dist_sweety = Vector3.Distance(transform.position, sweet.transform.position);
             if (dist_sweety > distance_too_far) {
-                float theta = Random.Range(0f, 2 * Mathf.PI);
-                Vector3 new_pos = sweet.transform.position + distances[0] * new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
-                transform.position = new_pos;
+                teleport();
             }
 
             //move the wolf
@@ -112,13 +112,27 @@ public class Loup : MonoBehaviour
         }
     }
 
+    void teleport()
+    {
+        Vector3 new_pos;
+        do
+        {
+            float theta = Random.Range(0f, 2 * Mathf.PI);
+            new_pos = sweet.transform.position + distances[0] * new Vector3(Mathf.Cos(theta), Mathf.Sin(theta), 0);
+        } while (Vector3.Magnitude(new_pos) > 90);
+        transform.position = new_pos;
+    }
     void RunToGirl()
     {
         //first heaer noise
         hearNoise(sweet.transform.position);
         //deal with house ...
-        if (CollidesHouse(transform.position, sweet.transform.position))
+
+        Vector3 loup_pos = centre_loup.transform.position;
+
+        if (CollidesHouse(loup_pos, sweet.transform.position,0.8f))
         {
+            Debug.Log("houuuuu");
             float dx_house = x2_house - x1_house;
             float dy_house = y2_house - y1_house;
 
@@ -137,9 +151,9 @@ public class Loup : MonoBehaviour
             List<int> from_sweet = new List<int>();
             for (int i = 0; i < 4; i++)
             {
-                if (!CollidesHouse(points[i], transform.position))
+                if (!CollidesHouse(points[i], loup_pos, 1.00f))
                     from_wolf.Add(i);
-                if (!CollidesHouse(points[i],sweet.transform.position,0.2f))
+                if (!CollidesHouse(points[i],sweet.transform.position,0.4f))
                     from_sweet.Add(i);
             }
 
@@ -151,8 +165,9 @@ public class Loup : MonoBehaviour
                 for(int j = 0; j<from_sweet.Count; ++j)
                 {
                     float current_dist = distance_table[from_wolf[i],from_sweet[j]]
-                        + Vector3.Distance(transform.position, points[from_wolf[i]])
+                        + Vector3.Distance(loup_pos, points[from_wolf[i]])
                         + Vector3.Distance(sweet.transform.position, points[from_sweet[j]]);
+
                     if(current_dist<best_dist)
                     {
                         best_point = from_wolf[i];
@@ -160,12 +175,12 @@ public class Loup : MonoBehaviour
                     }
                 }
             }
-            direction = Vector3.Normalize(points[best_point] - transform.position);
+            direction = Vector3.Normalize(points[best_point] - loup_pos);
 
         }
         else
         {
-            direction = Vector3.Normalize(sweet.transform.position - transform.position);
+            direction = Vector3.Normalize(sweet.transform.position - loup_pos);
         }
 
         current_speed = run_speed;
@@ -189,8 +204,6 @@ public class Loup : MonoBehaviour
             float theta_rand = Random.Range(-noise_precision*180.0f/Mathf.PI, noise_precision*180.0f/Mathf.PI);
             //initial angle with position
             direction = Quaternion.Euler(0, 0, theta_rand) * Vector3.Normalize(last_noise_pos - transform.position);
-            Debug.Log(direction);
-            Debug.Log(last_noise_pos - transform.position);
             current_speed =  walk_speed;
         }
         else if(action_to_do==0)
@@ -209,7 +222,7 @@ public class Loup : MonoBehaviour
             state -= 1;
     }
 
-    bool CollidesHouse(Vector3 a, Vector3 b, float radius = 0.5f)
+    bool CollidesHouse(Vector3 a, Vector3 b, float radius = 0.95f)
     {
         RaycastHit2D r = Physics2D.CircleCast(a, radius, b - a, Vector3.Distance(b, a),1<<8);
         return r;
