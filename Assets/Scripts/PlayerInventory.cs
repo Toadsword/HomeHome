@@ -24,7 +24,10 @@ public class PlayerInventory : MonoBehaviour
     float timer_pick = 1.0f;
     Transform pickableEnCours = null;
     public bool isPicking { get; private set; }
-     
+
+
+    float direction_lancer = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -80,12 +83,10 @@ public class PlayerInventory : MonoBehaviour
                 if (hasard == 5) caillou = GameObject.Instantiate(caillouPrefab6);
 
                 float rayon = 3;
-                float x = 1;
 
-                if (Random.value > 0.5)
-                    x = -1;
+                direction_lancer = -direction_lancer;
 
-                Vector3 deplacement = new Vector3(x,0, 0) * rayon;
+                Vector3 deplacement = new Vector3(direction_lancer, 0, 0) * rayon;
                 caillou.transform.position = transform.position;
                 caillou.GetComponent<Pickable>().lancerAnimation(deplacement);
             }
