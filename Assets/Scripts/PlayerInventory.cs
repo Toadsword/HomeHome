@@ -68,11 +68,12 @@ public class PlayerInventory : MonoBehaviour
         if (closestOne != null && ( closestOne.GetComponent<Pickable>().typePickable==Pickable.PickableType.BAIE ||
            closestOne.GetComponent<Pickable>().typePickable == Pickable.PickableType.BRINDILLE ||
            closestOne.GetComponent<Pickable>().typePickable == Pickable.PickableType.CHAMPIGNON ||
-           closestOne.GetComponent<Pickable>().typePickable == Pickable.PickableType.GRANNY) ) {
+           closestOne.GetComponent<Pickable>().typePickable == Pickable.PickableType.GRANNY ||
+           closestOne.GetComponent<Pickable>().typePickable == Pickable.PickableType.CAILLOU) ) {
             surbrillance.SetActive(true);
 
             surbrillance.transform.position = closestOne.transform.position;
-            surbrillance.GetComponent<SpriteRenderer>().sortingOrder = closestOne.GetComponent<SpriteRenderer>().sortingOrder + 1;
+            surbrillance.GetComponent<SpriteRenderer>().sortingOrder = closestOne.GetComponent<SpriteRenderer>().sortingOrder - 1;
         } else {
             surbrillance.SetActive(false);
         }
