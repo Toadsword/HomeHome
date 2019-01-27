@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6632356510573790624}
-  - component: {fileID: 2965939546935152807}
-  - component: {fileID: 5382557685953797697}
   - component: {fileID: 7352266635061089410}
   - component: {fileID: 3122466339917830314}
+  - component: {fileID: 7803590167841879122}
   m_Layer: 0
   m_Name: Pierre1
   m_TagString: Untagged
@@ -34,35 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2965939546935152807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2672915651033824546}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa7063985e63e4e41bfbb204820bd087, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  typePickable: 2
---- !u!58 &5382557685953797697
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2672915651033824546}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!212 &7352266635061089410
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -123,3 +93,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ea2bcdd0b173a4e947a731cdab8eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!70 &7803590167841879122
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2672915651033824546}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -1.5}
+  m_Size: {x: 6.41, y: 2}
+  m_Direction: 1

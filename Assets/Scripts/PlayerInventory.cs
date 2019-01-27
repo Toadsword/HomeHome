@@ -15,6 +15,7 @@ public class PlayerInventory : MonoBehaviour
 
     [SerializeField] private List<Transform> closestPickable;
 
+    [SerializeField] Pickable caillouPrefab;
 
     float duree_pick = 1.0f;//sec
     float timer_pick = 1.0f;
@@ -48,11 +49,11 @@ public class PlayerInventory : MonoBehaviour
                 }
             }
 
-            if (closestOne != null)
-            {
+            if (closestOne != null) {
                 pickableEnCours = closestOne;
                 timer_pick = 0;
                 isPicking = true;
+<<<<<<< HEAD
 
                 if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR)
                 {
@@ -60,6 +61,17 @@ public class PlayerInventory : MonoBehaviour
                     playerAnimation.animator.SetBool("Pickup", true);
                     playerAnimation.animator.speed = 1;
                 }
+=======
+            } else if(numCailloux>0){
+                numCailloux--;
+                Pickable caillou = GameObject.Instantiate(caillouPrefab);
+                float rayon = 3;
+                float x = 1;
+                if (Random.value > 0.5) x = -1;
+                Vector3 deplacement = new Vector3(x,0, 0) * rayon;
+                caillou.transform.position = transform.position;
+                caillou.GetComponent<Pickable>().lancerAnimation(deplacement);
+>>>>>>> master
             }
         }
 
