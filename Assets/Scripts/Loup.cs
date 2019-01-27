@@ -17,9 +17,9 @@ public class Loup : MonoBehaviour
 
     //speed of the wolf
     [SerializeField] private float walk_speed = 2.0f;
-    [SerializeField] private float[] walk_speed_lvl = {2.0f, 2.5f, 2.8f};
+    [SerializeField] private float[] walk_speed_lvl = { 2.0f, 2.5f, 2.8f };
     [SerializeField] private float run_speed = 5.0f;
-    [SerializeField] private float[] run_speed_lvl = { 4.0f, 5.0f, 5.5f};
+    [SerializeField] private float[] run_speed_lvl = { 4.0f, 5.0f, 5.5f };
 
     float current_speed = 0.0f;
 
@@ -68,8 +68,6 @@ public class Loup : MonoBehaviour
     {
 		rigid = GetComponent<Rigidbody2D>();
         state = 0;
-        run_speed = run_speed_lvl[1];
-        walk_speed = walk_speed_lvl[1];
     }
 
     // Update is called once per frame
@@ -198,6 +196,7 @@ public class Loup : MonoBehaviour
     //se balader
     void WanderAround()
     {
+        Vector3 loup_pos = centre_loup.transform.position;
         int action_to_do = Random.Range(0, 5);
         //it starts walking again
         if (action_to_do != 0)
@@ -205,7 +204,7 @@ public class Loup : MonoBehaviour
             //random theta noise
             float theta_rand = Random.Range(-noise_precision*180.0f/Mathf.PI, noise_precision*180.0f/Mathf.PI);
             //initial angle with position
-            direction = Quaternion.Euler(0, 0, theta_rand) * Vector3.Normalize(last_noise_pos - transform.position);
+            direction = Quaternion.Euler(0, 0, theta_rand) * Vector3.Normalize(last_noise_pos - centre_loup.transform.position);
             current_speed =  walk_speed;
         }
         else if(action_to_do==0)
@@ -284,6 +283,10 @@ public class Loup : MonoBehaviour
             arbreEnCoursDestruction = other.gameObject;
             posArbreInitiale = arbreEnCoursDestruction.transform.position;
         }
+        if (other.gameObject.tag == "Sweet")
+        {
+            gameOver();
+        }
     }
 
     public void SetSurBuisson(bool b)
@@ -301,6 +304,11 @@ public class Loup : MonoBehaviour
     {
         run_speed = run_speed_lvl[newLevel];
         walk_speed = walk_speed_lvl[newLevel];
+    }
+
+    void gameOver()
+    {
+        SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.END_GAME);
     }
 
 }
