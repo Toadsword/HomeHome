@@ -105,7 +105,7 @@ public class Loup : MonoBehaviour
 
             //move the wolf
             float alpha = 1.0f;
-            if (surFeuillage)
+            if (surFeuillage || surBuisson)
                 alpha = 0.5f;
 
             rigid.velocity = current_speed * direction * alpha;
