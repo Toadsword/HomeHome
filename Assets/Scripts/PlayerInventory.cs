@@ -8,12 +8,13 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private int numBaie = 0;
     [SerializeField] private int numBrindille = 0;
     [SerializeField] private int numChampignon = 0;
+    [SerializeField] private int numCailloux = 0;
 
     [SerializeField] private int maxInventory = 20;
 
     [SerializeField] private List<Transform> closestPickable;
 
-    float timer_pick = 0;
+    float timer_pick = 1;
     float duree_pick = 1.0f;//sec
     Transform pickableEnCours = null;
     public bool isPicking { get; private set; }
@@ -69,6 +70,9 @@ public class PlayerInventory : MonoBehaviour
                     case Pickable.PickableType.CHAMPIGNON:
                         numChampignon++;
                         break;
+                    case Pickable.PickableType.CAILLOU:
+                        numCailloux++;
+                        break;
                 }
 
                 isPicking = false;
@@ -94,5 +98,19 @@ public class PlayerInventory : MonoBehaviour
         {
             closestPickable.Remove(collider.transform);
         }
+    }
+
+
+    public int nombreBaies() {
+        return numBaie;
+    }
+    public int nombreBrindille() {
+        return numBrindille;
+    }
+    public int nombreChampignon() {
+        return numChampignon;
+    }
+    public int nombreCailloux() {
+        return numCailloux;
     }
 }
