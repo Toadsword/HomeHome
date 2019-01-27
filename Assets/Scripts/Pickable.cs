@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(CircleCollider2D))]
 public class Pickable : MonoBehaviour
 {
+    [SerializeField] public PickableType typePickable;
+
     public enum PickableType
     {
         BAIE,
@@ -33,5 +35,4 @@ public class Pickable : MonoBehaviour
         }
     }
 
-    [SerializeField] public PickableType typePickable;
 }

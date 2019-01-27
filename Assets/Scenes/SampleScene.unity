@@ -17436,15 +17436,6 @@ PrefabInstance:
       propertyPath: loup
       value: 
       objectReference: {fileID: 8102803410411676142}
-    - target: {fileID: 1907851063, guid: 1a015f1ee1c672b479347a8aa65629bb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1853224352410757648, guid: 1a015f1ee1c672b479347a8aa65629bb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a015f1ee1c672b479347a8aa65629bb, type: 3}
 --- !u!1 &1440664741 stripped
