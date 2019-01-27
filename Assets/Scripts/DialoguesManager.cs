@@ -50,8 +50,8 @@ public class DialoguesManager : MonoBehaviour {
     void Update()
     {
         if (GameInput.GetInputUp(GameInput.InputType.ACTION)) {
-            lancerDialogue();
-            Debug.Log("coucou");
+            /*lancerDialogue();
+            Debug.Log("coucou");*/
         }
 
         gestionAnimations();
