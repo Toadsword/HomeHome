@@ -97,6 +97,9 @@ public class MenuManager : MonoBehaviour
                 GameObject creditPanelObject = GameObject.Find("Canvas").transform.Find("CreditPanel").gameObject;
                 creditPanelObject.SetActive(!creditPanelObject.activeSelf);
                 break;
+            case "ToMenu":
+                SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.MENU);
+                break;
             case "QuitButton":
                 Application.Quit();
                 break;
