@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8072512704233341376}
   - component: {fileID: 3360169005222844121}
   - component: {fileID: 7536658430043855544}
-  - component: {fileID: 5900864950672469738}
+  - component: {fileID: 3023070757577487970}
   m_Layer: 0
   m_Name: Pierre2
   m_TagString: Untagged
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ea2bcdd0b173a4e947a731cdab8eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!70 &5900864950672469738
-CapsuleCollider2D:
+--- !u!58 &3023070757577487970
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,6 +106,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1}
-  m_Size: {x: 7, y: 2}
-  m_Direction: 1
+  m_Offset: {x: -0.027233342, y: 0.3}
+  serializedVersion: 2
+  m_Radius: 1
