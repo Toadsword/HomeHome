@@ -181,12 +181,18 @@ MonoBehaviour:
   numCailloux: 0
   playerAnimation: {fileID: 2962802248729549232}
   closestPickable: []
-  caillouPrefab1: {fileID: 0}
-  caillouPrefab2: {fileID: 0}
-  caillouPrefab3: {fileID: 0}
-  caillouPrefab4: {fileID: 0}
-  caillouPrefab5: {fileID: 0}
-  caillouPrefab6: {fileID: 0}
+  caillouPrefab1: {fileID: 6594032925510520424, guid: eccdc54d79e8b4543a17a5784f9ebd1b,
+    type: 3}
+  caillouPrefab2: {fileID: 4645278865193866732, guid: 0623c4331724a7b41bb3dc83ed621ad6,
+    type: 3}
+  caillouPrefab3: {fileID: 8364489540704142209, guid: 99767015de60ec2469ff6cc323dfe1fe,
+    type: 3}
+  caillouPrefab4: {fileID: 5861988500916154728, guid: 99c7da8889872b14890dbe50e7ada92a,
+    type: 3}
+  caillouPrefab5: {fileID: 5652973317447642346, guid: 3508a0b0875a22d44a36245e553eaa63,
+    type: 3}
+  caillouPrefab6: {fileID: 4875010328906180461, guid: 438fe1c282f11d748b54c0ef2b710555,
+    type: 3}
   surbrillance: {fileID: 0}
 --- !u!50 &1853224351439058721
 Rigidbody2D:
