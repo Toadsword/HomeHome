@@ -7,15 +7,18 @@ public class LanterneChan : MonoBehaviour
     [SerializeField] float maxScale = 2.5f;
     [SerializeField] float minScale = 0.0f;
     private float currentScale;
-    
-    [SerializeField] private float timeForOneScale = 120;
+
+    [SerializeField] private float[] timeForOneScale = {40, 50, 60};
+    private float currentTimeForOneScale;
+
 
     [SerializeField] private float timeRemaining;
 
     // Start is called before the first frame update
     void Start()
     {
-        timeRemaining = timeForOneScale * maxScale;
+        currentTimeForOneScale = timeForOneScale[1];
+        timeRemaining = currentTimeForOneScale * maxScale;
     }
 
     // Update is called once per frame
@@ -28,7 +31,7 @@ public class LanterneChan : MonoBehaviour
         else
         {
             timeRemaining -= Time.deltaTime;
-            currentScale = timeRemaining / timeForOneScale;
+            currentScale = timeRemaining / currentTimeForOneScale;
             if (currentScale > maxScale)
                 currentScale = maxScale;
             if (currentScale < minScale)
@@ -39,8 +42,13 @@ public class LanterneChan : MonoBehaviour
         }
     }
 
+    public void LeveluUp(int newLevel)
+    {
+        currentTimeForOneScale = timeForOneScale[newLevel];
+    }
+
     public void ResetLanterneTimer()
     {
-        timeRemaining = timeForOneScale * maxScale;
+        timeRemaining = currentTimeForOneScale * maxScale;
     }
 }

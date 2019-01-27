@@ -13,7 +13,8 @@ public class Pickable : MonoBehaviour
         BRINDILLE,
         CHAMPIGNON,
         CAILLOU,
-        DOOR
+        DOOR,
+        GRANNY
     }
 
     float timer_animation = 0;//sec

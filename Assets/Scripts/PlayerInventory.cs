@@ -5,14 +5,12 @@ using UnityEngine.Experimental.PlayerLoop;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [SerializeField] private int numBaie = 0;
-    [SerializeField] private int numBrindille = 0;
-    [SerializeField] private int numChampignon = 0;
-    [SerializeField] private int numCailloux = 0;
-
-    [SerializeField] private int maxInventory = 20;
+    [SerializeField] public int numBaie = 0;
+    [SerializeField] public int numBrindille = 0;
+    [SerializeField] public int numChampignon = 0;
+    [SerializeField] public int numCailloux = 0;
+    
     [SerializeField] private PlayerAnimation playerAnimation;
-
     [SerializeField] private List<Transform> closestPickable;
 
     [SerializeField] Pickable caillouPrefab1;
@@ -22,11 +20,16 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] Pickable caillouPrefab5;
     [SerializeField] Pickable caillouPrefab6;
 
+    [SerializeField] GameObject surbrillance;
+
     float duree_pick = 1.0f;//sec
     float timer_pick = 1.0f;
     Transform pickableEnCours = null;
     public bool isPicking { get; private set; }
-     
+
+
+    float direction_lancer = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,51 +42,81 @@ public class PlayerInventory : MonoBehaviour
     void Update()
     {
         //récupération pickable plus proche
-        if (GameInput.GetInputDown(GameInput.InputType.ACTION))
-        {
-            Transform closestOne = null;
-            float minDist = Mathf.Infinity;
-            Vector3 currentPos = transform.position;
-            foreach (Transform t in closestPickable)
-            {
-                float dist = Vector3.Distance(t.position, currentPos);
-                if (dist < minDist)
-                {
-                    closestOne = t;
-                    minDist = dist;
-                }
-            }
+        Transform closestOne = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
 
-            if (closestOne != null) {
-                pickableEnCours = closestOne;
-                timer_pick = 0;
+        Pickable.PickableType currentMission = DialoguesManager.Instance.CurrentCondition();
+        foreach (Transform t in closestPickable)
+        {
+            if (t.GetComponent<Pickable>().typePickable != currentMission &&
+                t.GetComponent<Pickable>().typePickable != Pickable.PickableType.CAILLOU &&
+                t.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR &&
+                t.GetComponent<Pickable>().typePickable != Pickable.PickableType.GRANNY)
+                continue;
+
+            float dist = Vector3.Distance(t.position, currentPos);
+            if (dist < minDist)
+            {
+
+                closestOne = t;
+                minDist = dist;
+            }
+        }
+
+        //afficher surbrillance closestOne
+        if (closestOne != null) {
+            surbrillance.SetActive(true);
+
+            surbrillance.transform.position = closestOne.transform.position;
+            surbrillance.GetComponent<SpriteRenderer>().sortingOrder = closestOne.GetComponent<SpriteRenderer>().sortingOrder + 1;
+        } else {
+            surbrillance.SetActive(false);
+        }
+
+
+        if (GameInput.GetInputDown(GameInput.InputType.ACTION)) {
+            if (closestOne != null)
+            {
                 isPicking = true;
-                if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR)
+                pickableEnCours = closestOne;
+                if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable == Pickable.PickableType.GRANNY)
+                {
+                    if(!DialoguesManager.Instance.lancerDialogue())
+                        return;
+                    isPicking = false;
+                }
+
+                timer_pick = 0;
+
+                if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR &&
+                    pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.GRANNY)
                 {
                     SoundManager.Instance.PlaySound(SoundManager.SoundList.GRAB);
                     playerAnimation.animator.SetBool("Pickup", true);
                     playerAnimation.animator.speed = 1;
                 }
+                else if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable == Pickable.PickableType.GRANNY)
+                {
+                    timer_pick = duree_pick;
+                }
+
             } else if(numCailloux>0){
                 numCailloux--;
                 Pickable caillou = null;
-                int hasard = (int)(Random.value * 100) % 6;
-                if(hasard==0)
-                    caillou= GameObject.Instantiate(caillouPrefab1);
-                if (hasard == 1)
-                    caillou = GameObject.Instantiate(caillouPrefab2);
-                if (hasard == 2)
-                    caillou = GameObject.Instantiate(caillouPrefab3);
-                if (hasard == 3)
-                    caillou = GameObject.Instantiate(caillouPrefab4);
-                if (hasard == 4)
-                    caillou = GameObject.Instantiate(caillouPrefab5);
-                if (hasard == 5)
-                    caillou = GameObject.Instantiate(caillouPrefab6);
+                int hasard = (Random.Range(0,6));
+                if (hasard==0) caillou= GameObject.Instantiate(caillouPrefab1);
+                if (hasard == 1) caillou = GameObject.Instantiate(caillouPrefab2);
+                if (hasard == 2) caillou = GameObject.Instantiate(caillouPrefab3);
+                if (hasard == 3) caillou = GameObject.Instantiate(caillouPrefab4);
+                if (hasard == 4) caillou = GameObject.Instantiate(caillouPrefab5);
+                if (hasard == 5) caillou = GameObject.Instantiate(caillouPrefab6);
+
                 float rayon = 3;
-                float x = 1;
-                if (Random.value > 0.5) x = -1;
-                Vector3 deplacement = new Vector3(x,0, 0) * rayon;
+
+                direction_lancer = -direction_lancer;
+
+                Vector3 deplacement = new Vector3(direction_lancer, 0, 0) * rayon;
                 caillou.transform.position = transform.position;
                 caillou.GetComponent<Pickable>().lancerAnimation(deplacement);
             }
@@ -107,19 +140,21 @@ public class PlayerInventory : MonoBehaviour
                         numCailloux++;
                         break;
                 }
-
-
+                
                 if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR)
                 {
                     playerAnimation.animator.SetBool("Pickup", false);
 
                     isPicking = false;
-                    //pickableEnCours.gameObject.SetActive(false); <- haha gronul
-                    Destroy(pickableEnCours.gameObject);
+                    if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable !=
+                        Pickable.PickableType.GRANNY)
+                    {
+                        Destroy(pickableEnCours.gameObject);
+                        closestPickable.Remove(pickableEnCours);
+                    }
                     pickableEnCours = null;
-                    closestPickable.Remove(pickableEnCours);
                 }
-                else
+                else if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable == Pickable.PickableType.DOOR)
                 {
                     // Changement de scene vers la maison ou vers dehors
                     if(SceneManagement.Instance.currentScene == SceneManagement.Scenes.HOUSE)
@@ -146,19 +181,5 @@ public class PlayerInventory : MonoBehaviour
         {
             closestPickable.Remove(collider.transform);
         }
-    }
-
-
-    public int nombreBaies() {
-        return numBaie;
-    }
-    public int nombreBrindille() {
-        return numBrindille;
-    }
-    public int nombreChampignon() {
-        return numChampignon;
-    }
-    public int nombreCailloux() {
-        return numCailloux;
     }
 }

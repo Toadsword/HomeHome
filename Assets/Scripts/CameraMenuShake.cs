@@ -10,7 +10,7 @@ public class CameraMenuShake : MonoBehaviour
 
     float f1 = 0.15f;
     float f2 = 0.2f;
-    float rayon = 270;
+    float rayon = 1020;
 
 
     // Start is called before the first frame update

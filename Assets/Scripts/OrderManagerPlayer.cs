@@ -7,22 +7,30 @@ public class OrderManagerPlayer : MonoBehaviour
     private Rigidbody2D rigid;
     private int decalage = 1;
 
-    [SerializeField]
-    private GameObject lamp_left;
-    [SerializeField]
-    private GameObject lamp_right;
+    [SerializeField] private GameObject lamp_left;
+    [SerializeField] private GameObject lamp_right;
+
+    private SpriteRenderer lamp_sprite;
+    private Transform lamp;
+    private Animator animator;
+    private Transform sprite;
 
     // Start is called before the first frame update
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+        lamp = transform.GetChild(3);
+        if (lamp != null)
+        {
+            lamp_sprite = lamp.transform.GetChild(0).GetComponent<SpriteRenderer>();
+            sprite = transform.GetChild(0);
+            animator = sprite.GetComponent<Animator>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Transform lamp = transform.GetChild(3);
-        SpriteRenderer lamp_sprite = lamp.transform.GetChild(0).GetComponent<SpriteRenderer>();
 
         transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -(int)(transform.position.y * 100);
 
@@ -36,11 +44,12 @@ public class OrderManagerPlayer : MonoBehaviour
         else if (rigid.velocity.y > 0 || rigid.velocity.x < 0)
             lamp.transform.position = lamp_left.transform.position;*/
 
-        Transform sprite = transform.GetChild(0);
-        Animator animator = sprite.GetComponent<Animator>();
+        if (lamp == null)
+            return;
+
         AnimatorStateInfo infos_anim = animator.GetCurrentAnimatorStateInfo(0);
 
-        if(infos_anim.IsName("Left"))
+        if (infos_anim.IsName("Left"))
         {
             decalage = 1;
             lamp.transform.position = lamp_left.transform.position;

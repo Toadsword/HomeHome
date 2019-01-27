@@ -42,18 +42,24 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         //décider quelle image mettre à chercher (champi, baies ou brindille)
-        if (dialogueManager.dialogueEnCours().conditionEstChampignons()) {
-            ImageACueillir.sprite = champignon;
-            QuantACueillir.text = "x" + playerInventory.nombreChampignon();
-        } else if (dialogueManager.dialogueEnCours().conditionEstBaies()) {
-            ImageACueillir.sprite = baies;
-            QuantACueillir.text = "x" + playerInventory.nombreBaies();
-        } else if (dialogueManager.dialogueEnCours().conditionEstBrindilles()) {
-            ImageACueillir.sprite = brindilles;
-            QuantACueillir.text = "x" + playerInventory.nombreBrindille();
+
+        switch (DialoguesManager.Instance.CurrentCondition())
+        {
+            case Pickable.PickableType.CHAMPIGNON: 
+                ImageACueillir.sprite = champignon;
+                QuantACueillir.text =  playerInventory.numChampignon +"/"+dialogueManager.dialogueEnCours().nb_champignons;
+                break;
+            case Pickable.PickableType.BAIE: 
+                ImageACueillir.sprite = baies;
+                QuantACueillir.text =  playerInventory.numBaie+"/"+dialogueManager.dialogueEnCours().nb_baies;
+                break;
+            case Pickable.PickableType.BRINDILLE:
+                ImageACueillir.sprite = brindilles;
+                QuantACueillir.text =  playerInventory.numBrindille+"/"+dialogueManager.dialogueEnCours().nb_brindilles;
+                break;
         }
 
         //trouver quantité cailloux
-        QuantCailloux.text = "x" + playerInventory.nombreCailloux();
+        QuantCailloux.text = playerInventory.numCailloux+"";
     }
 }
