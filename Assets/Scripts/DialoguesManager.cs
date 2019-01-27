@@ -37,8 +37,8 @@ public class DialoguesManager : MonoBehaviour {
     [SerializeField] private LanterneChan lanternChan;
 
     //gestion animations
-    enum Etat { ouvert, closed, enOuverture, enFermeture, enEcriture};
-    Etat etat;
+    public enum Etat { ouvert, closed, enOuverture, enFermeture, enEcriture};
+    public Etat etat;
 
     Vector2 tailleInitialeBoite;
     float timer_boite;
@@ -178,7 +178,7 @@ public class DialoguesManager : MonoBehaviour {
         return dialogues[dialogue_courant].GetMissionType();
     }
 
-    public void lancerDialogue() {
+    public bool lancerDialogue() {
         if (etat==Etat.ouvert) {
             //boite déjà ouverte
             //on passe au prochain texte
@@ -187,7 +187,8 @@ public class DialoguesManager : MonoBehaviour {
 
             if(dialogueEnCours().prochainTexte()){
                 //on est arrivé au delà de la fin, il faut fermer
-                fermeture();    
+                fermeture();
+                return true;
             }
 
         } else if(etat==Etat.closed)
@@ -210,6 +211,8 @@ public class DialoguesManager : MonoBehaviour {
             }
             dialogueEnCours().commencer();
         }
+
+        return false;
     }
 
     void fermeture() {

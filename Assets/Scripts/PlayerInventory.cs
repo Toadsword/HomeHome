@@ -47,7 +47,9 @@ public class PlayerInventory : MonoBehaviour
             foreach (Transform t in closestPickable)
             {
                 if (t.GetComponent<Pickable>().typePickable != currentMission && 
-                    t.GetComponent<Pickable>().typePickable != Pickable.PickableType.CAILLOU)
+                    t.GetComponent<Pickable>().typePickable != Pickable.PickableType.CAILLOU && 
+                    t.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR && 
+                    t.GetComponent<Pickable>().typePickable != Pickable.PickableType.GRANNY)
                     continue;
 
                 float dist = Vector3.Distance(t.position, currentPos);
@@ -58,16 +60,31 @@ public class PlayerInventory : MonoBehaviour
                 }
             }
 
-            if (closestOne != null) {
-                pickableEnCours = closestOne;
-                timer_pick = 0;
+            if (closestOne != null)
+            {
                 isPicking = true;
-                if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR)
+                pickableEnCours = closestOne;
+                if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable == Pickable.PickableType.GRANNY)
+                {
+                    if(!DialoguesManager.Instance.lancerDialogue())
+                        return;
+                    isPicking = false;
+                }
+
+                timer_pick = 0;
+
+                if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR &&
+                    pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.GRANNY)
                 {
                     SoundManager.Instance.PlaySound(SoundManager.SoundList.GRAB);
                     playerAnimation.animator.SetBool("Pickup", true);
                     playerAnimation.animator.speed = 1;
                 }
+                else if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable == Pickable.PickableType.GRANNY)
+                {
+                    timer_pick = duree_pick;
+                }
+
             } else if(numCailloux>0){
                 numCailloux--;
                 Pickable caillou = null;
@@ -115,11 +132,15 @@ public class PlayerInventory : MonoBehaviour
                     playerAnimation.animator.SetBool("Pickup", false);
 
                     isPicking = false;
-                    Destroy(pickableEnCours.gameObject);
+                    if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable !=
+                        Pickable.PickableType.GRANNY)
+                    {
+                        Destroy(pickableEnCours.gameObject);
+                        closestPickable.Remove(pickableEnCours);
+                    }
                     pickableEnCours = null;
-                    closestPickable.Remove(pickableEnCours);
                 }
-                else
+                else if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable == Pickable.PickableType.DOOR)
                 {
                     // Changement de scene vers la maison ou vers dehors
                     if(SceneManagement.Instance.currentScene == SceneManagement.Scenes.HOUSE)

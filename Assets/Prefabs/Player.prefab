@@ -179,10 +179,14 @@ MonoBehaviour:
   numBrindille: 0
   numChampignon: 0
   numCailloux: 0
-  maxInventory: 20
   playerAnimation: {fileID: 2962802248729549232}
   closestPickable: []
-  caillouPrefab: {fileID: 0}
+  caillouPrefab1: {fileID: 0}
+  caillouPrefab2: {fileID: 0}
+  caillouPrefab3: {fileID: 0}
+  caillouPrefab4: {fileID: 0}
+  caillouPrefab5: {fileID: 0}
+  caillouPrefab6: {fileID: 0}
 --- !u!50 &1853224351439058721
 Rigidbody2D:
   serializedVersion: 4
@@ -648,7 +652,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxScale: 4.5
   minScale: 1
-  timeForOneScale: 120
+  timeForOneScale:
+  - 40
+  - 50
+  - 60
   timeRemaining: 0
 --- !u!1 &8198912862613448203
 GameObject:
