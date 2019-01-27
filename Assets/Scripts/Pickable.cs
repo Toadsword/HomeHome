@@ -10,6 +10,7 @@ public class Pickable : MonoBehaviour
         BAIE,
         BRINDILLE,
         CHAMPIGNON,
+        CAILLOU,
         DOOR
     }
 

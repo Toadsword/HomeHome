@@ -50,4 +50,14 @@ public class Dialogue
         return false;
     }
 
+    public bool conditionEstChampignons() {
+        return nb_champignons > 0;
+    }
+    public bool conditionEstBaies() {
+        return nb_baies > 0;
+    }
+    public bool conditionEstBrindilles() {
+        return nb_brindilles > 0;
+    }
+
 }

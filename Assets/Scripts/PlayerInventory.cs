@@ -8,10 +8,13 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private int numBaie = 0;
     [SerializeField] private int numBrindille = 0;
     [SerializeField] private int numChampignon = 0;
+    [SerializeField] private int numCailloux = 0;
 
     [SerializeField] private int maxInventory = 20;
+    [SerializeField] private PlayerAnimation playerAnimation;
 
     [SerializeField] private List<Transform> closestPickable;
+
 
     float duree_pick = 1.0f;//sec
     float timer_pick = 1.0f;
@@ -57,7 +60,7 @@ public class PlayerInventory : MonoBehaviour
         //gestion temps d'attente pour pick
         if (timer_pick < duree_pick) {
             timer_pick += Time.deltaTime;
-
+            playerAnimation.animator.SetBool("Pickup", true);
             if (timer_pick > duree_pick) {
                 switch (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable) {
                     case Pickable.PickableType.BAIE:
@@ -69,8 +72,12 @@ public class PlayerInventory : MonoBehaviour
                     case Pickable.PickableType.CHAMPIGNON:
                         numChampignon++;
                         break;
+                    case Pickable.PickableType.CAILLOU:
+                        numCailloux++;
+                        break;
                 }
 
+                playerAnimation.animator.SetBool("Pickup", false);
                 isPicking = false;
                 pickableEnCours.gameObject.SetActive(false);
                 pickableEnCours = null;
@@ -94,5 +101,19 @@ public class PlayerInventory : MonoBehaviour
         {
             closestPickable.Remove(collider.transform);
         }
+    }
+
+
+    public int nombreBaies() {
+        return numBaie;
+    }
+    public int nombreBrindille() {
+        return numBrindille;
+    }
+    public int nombreChampignon() {
+        return numChampignon;
+    }
+    public int nombreCailloux() {
+        return numCailloux;
     }
 }
