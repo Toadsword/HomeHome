@@ -13,6 +13,8 @@ public class Dialogue
     public int nb_brindilles { get; private set; }
     public int nb_baies { get; private set; }
 
+    private Pickable.PickableType missionType;
+
     public Dialogue(List<string> txt_fr, int _nb_champignons, int _nb_baies, int _nb_brindilles) {
         indice_courant = 0;
         textes_fr = txt_fr;
@@ -20,6 +22,9 @@ public class Dialogue
         nb_champignons = _nb_champignons;
         nb_brindilles = _nb_brindilles;
         nb_baies = _nb_baies;
+        if (nb_champignons > 0) missionType = Pickable.PickableType.CHAMPIGNON;
+        if (nb_brindilles > 0) missionType = Pickable.PickableType.BRINDILLE;
+        if (nb_baies > 0) missionType = Pickable.PickableType.BAIE;
     }
 
     public bool conditionsRemplies(int _nb_champignons, int _nb_brindilles, int _nb_baies) {
@@ -50,14 +55,8 @@ public class Dialogue
         return false;
     }
 
-    public bool conditionEstChampignons() {
-        return nb_champignons > 0;
+    public Pickable.PickableType GetMissionType()
+    {
+        return missionType;
     }
-    public bool conditionEstBaies() {
-        return nb_baies > 0;
-    }
-    public bool conditionEstBrindilles() {
-        return nb_brindilles > 0;
-    }
-
 }
