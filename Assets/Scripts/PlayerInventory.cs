@@ -49,30 +49,18 @@ public class PlayerInventory : MonoBehaviour
         Pickable.PickableType currentMission = DialoguesManager.Instance.CurrentCondition();
         foreach (Transform t in closestPickable)
         {
-            if (t.GetComponent<Pickable>().typePickable != currentMission && 
-                t.GetComponent<Pickable>().typePickable != Pickable.PickableType.CAILLOU)
+            if (t.GetComponent<Pickable>().typePickable != currentMission &&
+                t.GetComponent<Pickable>().typePickable != Pickable.PickableType.CAILLOU &&
+                t.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR &&
+                t.GetComponent<Pickable>().typePickable != Pickable.PickableType.GRANNY)
                 continue;
 
             float dist = Vector3.Distance(t.position, currentPos);
             if (dist < minDist)
             {
-<<<<<<< HEAD
-                if (t.GetComponent<Pickable>().typePickable != currentMission && 
-                    t.GetComponent<Pickable>().typePickable != Pickable.PickableType.CAILLOU && 
-                    t.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR && 
-                    t.GetComponent<Pickable>().typePickable != Pickable.PickableType.GRANNY)
-                    continue;
 
-                float dist = Vector3.Distance(t.position, currentPos);
-                if (dist < minDist)
-                {
-                    closestOne = t;
-                    minDist = dist;
-                }
-=======
                 closestOne = t;
                 minDist = dist;
->>>>>>> master
             }
         }
 
@@ -86,14 +74,11 @@ public class PlayerInventory : MonoBehaviour
             surbrillance.SetActive(false);
         }
 
-<<<<<<< HEAD
+
+        if (GameInput.GetInputDown(GameInput.InputType.ACTION)) {
             if (closestOne != null)
             {
                 isPicking = true;
-=======
-        if (GameInput.GetInputDown(GameInput.InputType.ACTION)) {
-            if (closestOne != null) {
->>>>>>> master
                 pickableEnCours = closestOne;
                 if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable == Pickable.PickableType.GRANNY)
                 {
