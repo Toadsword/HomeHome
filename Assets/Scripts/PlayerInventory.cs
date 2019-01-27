@@ -20,6 +20,8 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] Pickable caillouPrefab5;
     [SerializeField] Pickable caillouPrefab6;
 
+    [SerializeField] GameObject surbrillance;
+
     float duree_pick = 1.0f;//sec
     float timer_pick = 1.0f;
     Transform pickableEnCours = null;
@@ -40,27 +42,36 @@ public class PlayerInventory : MonoBehaviour
     void Update()
     {
         //récupération pickable plus proche
-        if (GameInput.GetInputDown(GameInput.InputType.ACTION))
+        Transform closestOne = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = transform.position;
+
+        Pickable.PickableType currentMission = DialoguesManager.Instance.CurrentCondition();
+        foreach (Transform t in closestPickable)
         {
-            Transform closestOne = null;
-            float minDist = Mathf.Infinity;
-            Vector3 currentPos = transform.position;
+            if (t.GetComponent<Pickable>().typePickable != currentMission && 
+                t.GetComponent<Pickable>().typePickable != Pickable.PickableType.CAILLOU)
+                continue;
 
-            Pickable.PickableType currentMission = DialoguesManager.Instance.CurrentCondition();
-            foreach (Transform t in closestPickable)
+            float dist = Vector3.Distance(t.position, currentPos);
+            if (dist < minDist)
             {
-                if (t.GetComponent<Pickable>().typePickable != currentMission && 
-                    t.GetComponent<Pickable>().typePickable != Pickable.PickableType.CAILLOU)
-                    continue;
-
-                float dist = Vector3.Distance(t.position, currentPos);
-                if (dist < minDist)
-                {
-                    closestOne = t;
-                    minDist = dist;
-                }
+                closestOne = t;
+                minDist = dist;
             }
+        }
 
+        //afficher surbrillance closestOne
+        if (closestOne != null) {
+            surbrillance.SetActive(true);
+
+            surbrillance.transform.position = closestOne.transform.position;
+            surbrillance.GetComponent<SpriteRenderer>().sortingOrder = closestOne.GetComponent<SpriteRenderer>().sortingOrder + 1;
+        } else {
+            surbrillance.SetActive(false);
+        }
+
+        if (GameInput.GetInputDown(GameInput.InputType.ACTION)) {
             if (closestOne != null) {
                 pickableEnCours = closestOne;
                 timer_pick = 0;
