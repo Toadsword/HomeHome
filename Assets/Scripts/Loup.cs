@@ -71,6 +71,11 @@ public class Loup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(rigid.velocity.x<0)
+            transform.localScale = new Vector3(-1, 1, 1);
+        if (rigid.velocity.x>0)
+            transform.localScale = new Vector3(1, 1, 1);
+
         if (enDestructionArbre) {
             gestionDestructionArbre();
         } else {
@@ -109,6 +114,8 @@ public class Loup : MonoBehaviour
 
     void RunToGirl()
     {
+        //first heaer noise
+        hearNoise(sweet.transform.position);
         //deal with house ...
         if (CollidesHouse(transform.position, sweet.transform.position))
         {

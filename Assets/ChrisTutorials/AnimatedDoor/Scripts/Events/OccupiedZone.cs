@@ -18,7 +18,6 @@ public class OccupiedZone : MonoBehaviour
     {
         if (collision.tag != "Sweet")
             return;
-
         occupants.Add(collision);
 
         // First Occupant Trigger
