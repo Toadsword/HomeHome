@@ -50,7 +50,7 @@ MonoBehaviour:
   sceneNameMenu: Menu
   sceneNameOverworld: OverWorld
   sceneNameHouse: Home
-  sceneNameEndGame: EndGame
+  sceneNameEndGame: GameOver
   currentScene: 0
 --- !u!1 &3626854300591990079
 GameObject:
