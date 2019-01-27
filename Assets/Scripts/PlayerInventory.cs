@@ -15,7 +15,12 @@ public class PlayerInventory : MonoBehaviour
 
     [SerializeField] private List<Transform> closestPickable;
 
-    [SerializeField] Pickable caillouPrefab;
+    [SerializeField] Pickable caillouPrefab1;
+    [SerializeField] Pickable caillouPrefab2;
+    [SerializeField] Pickable caillouPrefab3;
+    [SerializeField] Pickable caillouPrefab4;
+    [SerializeField] Pickable caillouPrefab5;
+    [SerializeField] Pickable caillouPrefab6;
 
     float duree_pick = 1.0f;//sec
     float timer_pick = 1.0f;
@@ -61,7 +66,20 @@ public class PlayerInventory : MonoBehaviour
                 }
             } else if(numCailloux>0){
                 numCailloux--;
-                Pickable caillou = GameObject.Instantiate(caillouPrefab);
+                Pickable caillou = null;
+                int hasard = (int)(Random.value * 100) % 6;
+                if(hasard==0)
+                    caillou= GameObject.Instantiate(caillouPrefab1);
+                if (hasard == 1)
+                    caillou = GameObject.Instantiate(caillouPrefab2);
+                if (hasard == 2)
+                    caillou = GameObject.Instantiate(caillouPrefab3);
+                if (hasard == 3)
+                    caillou = GameObject.Instantiate(caillouPrefab4);
+                if (hasard == 4)
+                    caillou = GameObject.Instantiate(caillouPrefab5);
+                if (hasard == 5)
+                    caillou = GameObject.Instantiate(caillouPrefab6);
                 float rayon = 3;
                 float x = 1;
                 if (Random.value > 0.5) x = -1;
@@ -90,14 +108,24 @@ public class PlayerInventory : MonoBehaviour
                         break;
                 }
 
+
                 if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR)
                 {
                     playerAnimation.animator.SetBool("Pickup", false);
 
                     isPicking = false;
-                    pickableEnCours.gameObject.SetActive(false);
+                    //pickableEnCours.gameObject.SetActive(false); <- haha gronul
+                    Destroy(pickableEnCours.gameObject);
                     pickableEnCours = null;
                     closestPickable.Remove(pickableEnCours);
+                }
+                else
+                {
+                    // Changement de scene vers la maison ou vers dehors
+                    if(SceneManagement.Instance.currentScene == SceneManagement.Scenes.HOUSE)
+                        SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.OVERWORLD);
+                    else
+                        SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.HOUSE);
                 }
             }
 
