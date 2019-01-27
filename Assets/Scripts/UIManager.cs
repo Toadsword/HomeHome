@@ -47,19 +47,19 @@ public class UIManager : MonoBehaviour
         {
             case Pickable.PickableType.CHAMPIGNON: 
                 ImageACueillir.sprite = champignon;
-                QuantACueillir.text = "x" + playerInventory.numChampignon;
+                QuantACueillir.text =  playerInventory.numChampignon +"/"+dialogueManager.dialogueEnCours().nb_champignons;
                 break;
             case Pickable.PickableType.BAIE: 
                 ImageACueillir.sprite = baies;
-                QuantACueillir.text = "x" + playerInventory.numBaie;
+                QuantACueillir.text =  playerInventory.numBaie+"/"+dialogueManager.dialogueEnCours().nb_baies;
                 break;
             case Pickable.PickableType.BRINDILLE:
                 ImageACueillir.sprite = brindilles;
-                QuantACueillir.text = "x" + playerInventory.numBrindille;
+                QuantACueillir.text =  playerInventory.numBrindille+"/"+dialogueManager.dialogueEnCours().nb_brindilles;
                 break;
         }
 
         //trouver quantité cailloux
-        QuantCailloux.text = "x" + playerInventory.numCailloux;
+        QuantCailloux.text = playerInventory.numCailloux+"";
     }
 }
