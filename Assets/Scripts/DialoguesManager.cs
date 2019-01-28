@@ -58,6 +58,8 @@ public class DialoguesManager : MonoBehaviour {
 
         timer_boite = 0;
         tailleInitialeBoite = boiteDialogue.transform.localScale;
+
+        DontDestroyOnLoad(this);
     }
 
     // Update is called once per frame
@@ -260,5 +262,15 @@ public class DialoguesManager : MonoBehaviour {
         }
 
         boiteDialogue.transform.localScale = tailleInitialeBoite* Mathf.Min(timer_boite/duree_boite,1);
+    }
+
+    public void setChampignons(int a) {
+        champignons = a;
+    }
+    public void setBaies(int a) {
+        baies = a;
+    }
+    public void setBrindilles(int a) {
+        brindilles = a;
     }
 }

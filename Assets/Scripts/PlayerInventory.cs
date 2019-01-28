@@ -33,6 +33,7 @@ public class PlayerInventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Start playerInventory");
         numBaie = 0;
         numBrindille = 0;
         numChampignon = 0;
@@ -96,7 +97,6 @@ public class PlayerInventory : MonoBehaviour
                 if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR &&
                     pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.GRANNY)
                 {
-                    SoundManager.Instance.PlaySound(SoundManager.SoundList.GRAB);
                     playerAnimation.animator.SetBool("Pickup", true);
                     playerAnimation.animator.speed = 1;
                 }
@@ -130,6 +130,7 @@ public class PlayerInventory : MonoBehaviour
         if (timer_pick < duree_pick) {
             timer_pick += Time.deltaTime;
             if (timer_pick > duree_pick) {
+                SoundManager.Instance.PlaySound(SoundManager.SoundList.GRAB);
                 switch (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable) {
                     case Pickable.PickableType.BAIE:
                         numBaie++;
@@ -144,7 +145,10 @@ public class PlayerInventory : MonoBehaviour
                         numCailloux++;
                         break;
                 }
-                
+                DialoguesManager.Instance.setChampignons(numChampignon);
+                DialoguesManager.Instance.setBaies(numBaie);
+                DialoguesManager.Instance.setBrindilles(numBrindille);
+
                 if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR)
                 {
                     playerAnimation.animator.SetBool("Pickup", false);
