@@ -30,7 +30,7 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Update()
@@ -64,7 +64,8 @@ public class MenuManager : MonoBehaviour
             //else
             //    SoundManager._instance.PlaySound(SoundManager.SoundList.MENU_SELECTION);
         }
-        menuBtns[selectedIndex].Select();
+        if(selectedIndex>=0 && selectedIndex<menuBtns.Length)
+            menuBtns[selectedIndex].Select();
         
     }
 
@@ -81,28 +82,30 @@ public class MenuManager : MonoBehaviour
             }
             newIndex++;
         }
-        menuBtns[selectedIndex].Select();
+        if (selectedIndex >= 0 && selectedIndex < menuBtns.Length)
+            menuBtns[selectedIndex].Select();
     }
 
     public void SubmitButtonAction()
     {
         Transform panel;
         //Debug.Log(menuBtns[selectedIndex].name);
-        switch (menuBtns[selectedIndex].name)
-        {
-            case "StartButton":
-                SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.HOUSE);
-                break;
-            case "ButtonCredits":
-                GameObject creditPanelObject = GameObject.Find("Canvas").transform.Find("CreditPanel").gameObject;
-                creditPanelObject.SetActive(!creditPanelObject.activeSelf);
-                break;
-            case "ToMenu":
-                SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.MENU);
-                break;
-            case "QuitButton":
-                Application.Quit();
-                break;
+        if (selectedIndex >= 0 && selectedIndex < menuBtns.Length) {
+            switch (menuBtns[selectedIndex].name) {
+                case "StartButton":
+                    SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.HOUSE);
+                    break;
+                case "ButtonCredits":
+                    GameObject creditPanelObject = GameObject.Find("Canvas").transform.Find("CreditPanel").gameObject;
+                    creditPanelObject.SetActive(!creditPanelObject.activeSelf);
+                    break;
+                case "ToMenu":
+                    SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.MENU);
+                    break;
+                case "QuitButton":
+                    Application.Quit();
+                    break;
+            }
         }
         //SoundManager._instance.PlaySound(SoundManager.SoundList.MENU_VALIDATION);
     }

@@ -19,12 +19,13 @@ public class OrderManagerPlayer : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        lamp = transform.GetChild(3);
-        if (lamp != null)
-        {
-            lamp_sprite = lamp.transform.GetChild(0).GetComponent<SpriteRenderer>();
-            sprite = transform.GetChild(0);
-            animator = sprite.GetComponent<Animator>();
+        if (transform.childCount >= 4) {
+            lamp = transform.GetChild(3);
+            if (lamp != null) {
+                lamp_sprite = lamp.transform.GetChild(0).GetComponent<SpriteRenderer>();
+                sprite = transform.GetChild(0);
+                animator = sprite.GetComponent<Animator>();
+            }
         }
     }
 
