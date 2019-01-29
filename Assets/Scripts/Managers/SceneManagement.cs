@@ -55,10 +55,10 @@ public class SceneManagement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GameObject startPanel = GameObject.Find("StartPanel");
+        /*GameObject startPanel = GameObject.Find("StartPanel");
         if(startPanel != null)
-            MenuManager.Instance.SetupMenuBtns(startPanel.transform, true);
-
+            MenuManager.Instance.SetupMenuBtns(startPanel.transform, true);*/
+            
         DontDestroyOnLoad(gameObject);
     }
 
@@ -109,9 +109,11 @@ public class SceneManagement : MonoBehaviour
     private string GetSceneName(Scenes scene)
     {
         string sceneName = "";
+        fadeDuration = 0.2f;
         switch (scene)
         {
             case Scenes.OVERWORLD:
+                fadeDuration = 1.0f;
                 sceneName = sceneNameOverworld;
                 break;
             case Scenes.HOUSE:
@@ -129,6 +131,7 @@ public class SceneManagement : MonoBehaviour
 
     private void FadeAnimation(bool doAddOpacity)
     {
+        Debug.Log("FadeAnim " + fadeTimer + " / " + fadeDuration + "/" + doAddOpacity);
         Color color = blackFadeObject.color;
         if (doAddOpacity)
             color.a = MAX_FADE_OPACITY - (MAX_FADE_OPACITY * Utility.GetTimerRemainingTime(fadeTimer) / fadeDuration);
@@ -142,7 +145,6 @@ public class SceneManagement : MonoBehaviour
         switch (sceneName)
         {
             case Scenes.HOUSE:
-                fadeDuration = 0.7f;
                 SoundManager.Instance.PlayMusic(SoundManager.MusicList.HOUSE);
                 break;
             case Scenes.MENU:
@@ -150,12 +152,10 @@ public class SceneManagement : MonoBehaviour
 
                 break;
             case Scenes.OVERWORLD:
-                fadeDuration = 0.7f;
                 SoundManager.Instance.PlayMusic(SoundManager.MusicList.OVERWORLD);
 
                 break;
             case Scenes.END_GAME:
-                SoundManager.Instance.PlaySound(SoundManager.SoundList.LOUP_GROGNEMENT);
                 SoundManager.Instance.PlaySound(SoundManager.SoundList.LOUP_GROGNEMENT);
                 SoundManager.Instance.PlaySound(SoundManager.SoundList.LOUP_CRI);
 

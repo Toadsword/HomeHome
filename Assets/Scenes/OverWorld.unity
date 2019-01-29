@@ -17181,6 +17181,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3626854299862766303, guid: 844c707a452e1944d829020307df245a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3626854299862766301, guid: 844c707a452e1944d829020307df245a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -32685,12 +32690,12 @@ PrefabInstance:
     - target: {fileID: 1853224351439058725, guid: 1a015f1ee1c672b479347a8aa65629bb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.39
+      value: -1.8
       objectReference: {fileID: 0}
     - target: {fileID: 1853224351439058725, guid: 1a015f1ee1c672b479347a8aa65629bb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.8
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 1853224351439058725, guid: 1a015f1ee1c672b479347a8aa65629bb,
         type: 3}
@@ -41740,9 +41745,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.6}
+  m_Offset: {x: 0, y: -0.45}
   serializedVersion: 2
-  m_Radius: 0.99
+  m_Radius: 0.98
 --- !u!1001 &1846046656
 PrefabInstance:
   m_ObjectHideFlags: 0

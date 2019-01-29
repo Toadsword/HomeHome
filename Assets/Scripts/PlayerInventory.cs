@@ -22,8 +22,8 @@ public class PlayerInventory : MonoBehaviour
 
     [SerializeField] GameObject surbrillance;
 
-    float duree_pick = 1.0f;//sec
-    float timer_pick = 1.0f;
+    float duree_pick = 0.5f;//sec
+    float timer_pick;
     Transform pickableEnCours = null;
     public bool isPicking { get; private set; }
 
@@ -34,10 +34,14 @@ public class PlayerInventory : MonoBehaviour
     void Start()
     {
         Debug.Log("Start playerInventory");
-        numBaie = 0;
-        numBrindille = 0;
-        numChampignon = 0;
+
+        numChampignon = DialoguesManager.Instance.getChampignons();
+        numBaie = DialoguesManager.Instance.getBaies();
+        numBrindille = DialoguesManager.Instance.getBrindilles();
+        numCailloux = DialoguesManager.Instance.getCailloux();
+
         isPicking = false;
+        timer_pick = duree_pick;
     }
 
     void Update()
@@ -79,6 +83,16 @@ public class PlayerInventory : MonoBehaviour
             surbrillance.SetActive(false);
         }
 
+         if (closestOne !=null && closestOne.gameObject.GetComponent<Pickable>().typePickable == Pickable.PickableType.DOOR) {
+            // Changement de scene vers la maison ou vers dehors, sans action
+            timer_pick = duree_pick;
+            isPicking = false;
+            if (SceneManagement.Instance.currentScene == SceneManagement.Scenes.HOUSE)
+                SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.OVERWORLD);
+            else
+                SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.HOUSE);
+        }
+
 
         if (GameInput.GetInputDown(GameInput.InputType.ACTION)) {
             if (closestOne != null)
@@ -95,7 +109,8 @@ public class PlayerInventory : MonoBehaviour
                 timer_pick = 0;
 
                 if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR &&
-                    pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.GRANNY)
+                    pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.GRANNY &&
+                    !isPicking)
                 {
                     playerAnimation.animator.SetBool("Pickup", true);
                     playerAnimation.animator.speed = 1;
@@ -148,6 +163,7 @@ public class PlayerInventory : MonoBehaviour
                 DialoguesManager.Instance.setChampignons(numChampignon);
                 DialoguesManager.Instance.setBaies(numBaie);
                 DialoguesManager.Instance.setBrindilles(numBrindille);
+                DialoguesManager.Instance.setCailloux(numCailloux);
 
                 if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.DOOR)
                 {
@@ -162,14 +178,7 @@ public class PlayerInventory : MonoBehaviour
                     }
                     pickableEnCours = null;
                 }
-                else if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable == Pickable.PickableType.DOOR)
-                {
-                    // Changement de scene vers la maison ou vers dehors
-                    if(SceneManagement.Instance.currentScene == SceneManagement.Scenes.HOUSE)
-                        SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.OVERWORLD);
-                    else
-                        SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.HOUSE);
-                }
+                
             }
 
         }

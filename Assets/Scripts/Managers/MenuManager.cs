@@ -31,6 +31,7 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         //DontDestroyOnLoad(gameObject);
+        selectedIndex = 0;
     }
 
     void Update()
@@ -93,6 +94,7 @@ public class MenuManager : MonoBehaviour
         if (selectedIndex >= 0 && selectedIndex < menuBtns.Length) {
             switch (menuBtns[selectedIndex].name) {
                 case "StartButton":
+                    Initialiser();
                     SceneManagement.Instance.ChangeScene(SceneManagement.Scenes.HOUSE);
                     break;
                 case "ButtonCredits":
@@ -125,5 +127,11 @@ public class MenuManager : MonoBehaviour
         }
         else
             menuBtns = null;
+    }
+
+    void Initialiser() {
+        //remettre dialogue à zéro
+        DialoguesManager.Instance.Initialiser();
+        
     }
 }

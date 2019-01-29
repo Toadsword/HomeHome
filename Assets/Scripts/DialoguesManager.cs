@@ -31,6 +31,8 @@ public class DialoguesManager : MonoBehaviour {
 
     [SerializeField] int baies;
 
+    [SerializeField] int cailloux;
+
     int dialogue_courant;//indice du tableau des dialogues
     List<Dialogue> dialogues;
     [SerializeField] Loup loup;
@@ -50,16 +52,25 @@ public class DialoguesManager : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
+        creerDialogues();
+
+        Initialiser();
+
+        tailleInitialeBoite = boiteDialogue.transform.localScale;
+        DontDestroyOnLoad(this);
+    }
+
+    public void Initialiser() {
         dialogue_courant = 0;
         etat = Etat.closed;
         boiteDialogue.gameObject.SetActive(false);
 
-        creerDialogues();
-
+        champignons = 0;
+        baies = 0;
+        brindilles = 0;
+        cailloux = 0;
+        
         timer_boite = 0;
-        tailleInitialeBoite = boiteDialogue.transform.localScale;
-
-        DontDestroyOnLoad(this);
     }
 
     // Update is called once per frame
@@ -70,6 +81,8 @@ public class DialoguesManager : MonoBehaviour {
         }
 
         gestionAnimations();
+
+        Debug.Log("Champi : " + champignons);
     }
 
     void creerDialogues() {
@@ -201,10 +214,18 @@ public class DialoguesManager : MonoBehaviour {
 
             //si condition remplie, on ouvre nouveau dialogue
             if (dialogueEnCours().conditionsRemplies(champignons, brindilles, baies)) {
+                //on retire les items du joueur
+                champignons -= dialogueEnCours().nb_champignons;
+                baies -= dialogueEnCours().nb_baies;
+                brindilles -= dialogueEnCours().nb_brindilles;
+
                 dialogue_courant++;
 
-                loup.LeveluUp((int)(dialogue_courant / 3) + 1);
-                lanternChan.LeveluUp((int)(dialogue_courant / 3) + 1);
+                if(loup!=null)
+                    loup.LeveluUp((int)(dialogue_courant / 3) + 1);
+
+                if(lanternChan!=null)
+                    lanternChan.LeveluUp((int)(dialogue_courant / 3) + 1);
 
                 if (dialogue_courant >= dialogues.Count) {
                     //on a terminé la dernière quête... que faire ?
@@ -261,10 +282,23 @@ public class DialoguesManager : MonoBehaviour {
                 etat = Etat.ouvert;
         }
 
-        boiteDialogue.transform.localScale = tailleInitialeBoite* Mathf.Min(timer_boite/duree_boite,1);
+        boiteDialogue.transform.localScale = tailleInitialeBoite* Mathf.Min((float)timer_boite/duree_boite,1);
+    }
+    public int getChampignons() {
+        return champignons;
+    }
+    public int getBaies() {
+        return baies;
+    }
+    public int getBrindilles() {
+        return brindilles;
+    }
+    public int getCailloux() {
+        return cailloux;
     }
 
     public void setChampignons(int a) {
+        Debug.Log("Set champi " + a);
         champignons = a;
     }
     public void setBaies(int a) {
@@ -272,5 +306,8 @@ public class DialoguesManager : MonoBehaviour {
     }
     public void setBrindilles(int a) {
         brindilles = a;
+    }
+    public void setCailloux(int a) {
+        cailloux = a;
     }
 }

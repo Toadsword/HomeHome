@@ -36,14 +36,14 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         
+        dialogueManager = DialoguesManager.Instance;
     }
 
     // Update is called once per frame
     void Update()
     {
         //décider quelle image mettre à chercher (champi, baies ou brindille)
-
-        switch (DialoguesManager.Instance.CurrentCondition())
+        switch (dialogueManager.CurrentCondition())
         {
             case Pickable.PickableType.CHAMPIGNON: 
                 ImageACueillir.sprite = champignon;

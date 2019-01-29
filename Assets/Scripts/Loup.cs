@@ -19,7 +19,7 @@ public class Loup : MonoBehaviour
     [SerializeField] private float walk_speed = 2.0f;
     [SerializeField] private float[] walk_speed_lvl = { 2.0f, 2.5f, 2.8f };
     [SerializeField] private float run_speed = 5.0f;
-    [SerializeField] private float[] run_speed_lvl = { 4.0f, 5.0f, 5.5f };
+    [SerializeField] private float[] run_speed_lvl = { 3.5f, 3.8f, 4.2f };
 
     float current_speed = 0.0f;
 
@@ -259,8 +259,8 @@ public class Loup : MonoBehaviour
             timer_griffure -= duree_destruction_arbre / nb_griffures;
             //lancer tremblement arbre
             timer_tremblement_arbre = duree_tremblement_arbre;
-            SoundManager.Instance.PlaySound(SoundManager.SoundList.GRAB);
-            SoundManager.Instance.PlaySound(SoundManager.SoundList.CLIC);
+            //SoundManager.Instance.PlaySound(SoundManager.SoundList.GRAB);
+            //SoundManager.Instance.PlaySound(SoundManager.SoundList.CLIC);
         }
 
         if (arbreEnCoursDestruction != null) {
