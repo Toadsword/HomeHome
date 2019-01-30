@@ -97,10 +97,10 @@ public class PlayerInventory : MonoBehaviour
         if (GameInput.GetInputDown(GameInput.InputType.ACTION)) {
             if (closestOne != null)
             {
-                isPicking = true;
                 pickableEnCours = closestOne;
                 if (pickableEnCours.gameObject.GetComponent<Pickable>().typePickable == Pickable.PickableType.GRANNY)
                 {
+                    isPicking = true;
                     if(!DialoguesManager.Instance.lancerDialogue())
                         return;
                     isPicking = false;
@@ -112,6 +112,7 @@ public class PlayerInventory : MonoBehaviour
                     pickableEnCours.gameObject.GetComponent<Pickable>().typePickable != Pickable.PickableType.GRANNY &&
                     !isPicking)
                 {
+                    isPicking = true;
                     playerAnimation.animator.SetBool("Pickup", true);
                     playerAnimation.animator.speed = 1;
                 }
