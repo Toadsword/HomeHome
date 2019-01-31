@@ -172,7 +172,15 @@ MonoBehaviour:
   centre_loup: {fileID: 6129207749145136962}
   time: 100
   walk_speed: 5
+  walk_speed_lvl:
+  - 1.8
+  - 2.3
+  - 2.5
   run_speed: 6.5
+  run_speed_lvl:
+  - 3
+  - 4
+  - 4.5
   sweet: {fileID: 0}
   brindillePrefab: {fileID: 1251281339840261015, guid: 7e6644369a68ac948982916bd01d75e6,
     type: 3}
