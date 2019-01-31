@@ -39,7 +39,7 @@ public class Pause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)){
+        if (GameInput.GetInputDown(GameInput.InputType.MENU)){
             //switcher menu pause
             menuOptions.SetActive(!menuOptions.activeSelf);
             soundManager.PlaySound(SoundManager.SoundList.CLIC);

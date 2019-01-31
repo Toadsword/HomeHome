@@ -76,13 +76,7 @@ public class DialoguesManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (GameInput.GetInputUp(GameInput.InputType.ACTION)) {
-            /*lancerDialogue();*/
-        }
-
         gestionAnimations();
-
-        //Debug.Log("Champi : " + champignons);
     }
 
     void creerDialogues() {
