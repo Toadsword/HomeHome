@@ -131,7 +131,7 @@ public class SceneManagement : MonoBehaviour
 
     private void FadeAnimation(bool doAddOpacity)
     {
-        Debug.Log("FadeAnim " + fadeTimer + " / " + fadeDuration + "/" + doAddOpacity);
+        //Debug.Log("FadeAnim " + fadeTimer + " / " + fadeDuration + "/" + doAddOpacity);
         Color color = blackFadeObject.color;
         if (doAddOpacity)
             color.a = MAX_FADE_OPACITY - (MAX_FADE_OPACITY * Utility.GetTimerRemainingTime(fadeTimer) / fadeDuration);

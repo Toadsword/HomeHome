@@ -82,7 +82,7 @@ public class DialoguesManager : MonoBehaviour {
 
         gestionAnimations();
 
-        Debug.Log("Champi : " + champignons);
+        //Debug.Log("Champi : " + champignons);
     }
 
     void creerDialogues() {
@@ -298,7 +298,7 @@ public class DialoguesManager : MonoBehaviour {
     }
 
     public void setChampignons(int a) {
-        Debug.Log("Set champi " + a);
+        //Debug.Log("Set champi " + a);
         champignons = a;
     }
     public void setBaies(int a) {

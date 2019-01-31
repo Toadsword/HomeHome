@@ -132,7 +132,7 @@ public class Loup : MonoBehaviour
 
         if (CollidesHouse(loup_pos, sweet.transform.position,0.8f))
         {
-            Debug.Log("houuuuu");
+            //Debug.Log("houuuuu");
             float dx_house = x2_house - x1_house;
             float dy_house = y2_house - y1_house;
 

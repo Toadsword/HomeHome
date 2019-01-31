@@ -33,7 +33,7 @@ public class PlayerInventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Start playerInventory");
+        //Debug.Log("Start playerInventory");
 
         numChampignon = DialoguesManager.Instance.getChampignons();
         numBaie = DialoguesManager.Instance.getBaies();
